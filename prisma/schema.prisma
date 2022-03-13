@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Link {
+  id       String     @id @default(auto()) @map("_id") @db.ObjectId
+  url      String     @unique
+  isRead   Boolean    @default(false)
+  tags     Tag[]
+  Metadata Metadata[]
+}
+
+model Tag {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  link   Link   @relation(fields: [linkId], references: [id])
+  linkId String @db.ObjectId
+  label  String @unique
+}
+
+model Metadata {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  link       Link     @relation(fields: [linkId], references: [id])
+  linkId     String   @db.ObjectId
+  notes      String
+  customData String[]
+  // place additional metadata here
+}
