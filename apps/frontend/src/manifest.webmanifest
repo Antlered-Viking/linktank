@@ -1,9 +1,10 @@
 {
   "name": "Linktank",
   "short_name": "Linktank",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "theme_color": "#ff6700",
+  "background_color": "#ff6700",
   "display": "standalone",
+  "orientation": "portrait",
   "scope": "./",
   "start_url": "./",
   "icons": [
