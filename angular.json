@@ -4,6 +4,7 @@
     "api": "apps/api",
     "frontend": "apps/frontend",
     "frontend-e2e": "apps/frontend-e2e",
+    "resources": "libs/resources",
     "ui": "libs/ui"
   }
 }
