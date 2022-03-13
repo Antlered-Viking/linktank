@@ -8,11 +8,18 @@ import {
   LinksService,
   CategoriesController,
   CategoriesService,
+  CertificatesController,
+  CertificatesService,
 } from '@linktank/resources';
 
 @Module({
   imports: [],
-  controllers: [AppController, LinksController, CategoriesController],
-  providers: [AppService, LinksService, CategoriesService],
+  controllers: [
+    AppController,
+    LinksController,
+    CategoriesController,
+    CertificatesController,
+  ],
+  providers: [AppService, LinksService, CategoriesService, CertificatesService],
 })
 export class AppModule {}
