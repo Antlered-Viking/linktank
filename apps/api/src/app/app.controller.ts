@@ -1,13 +1,10 @@
-import { Controller, Get } from '@nestjs/common';
-
-import { AppService } from './app.service';
+import { Controller, Get, Version } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
+  @Version('1')
   @Get()
-  getData() {
-    return this.appService.getData();
+  welcome1() {
+    return { message: 'Welcome to the Linktank API!' };
   }
 }
