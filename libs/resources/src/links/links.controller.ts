@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { LinksService } from './links.service';
 import { CreateLinkDto } from './dto/create-link.dto';
@@ -20,23 +21,32 @@ export class LinksController {
     return this.linksService.create(createLinkDto);
   }
 
+  // api/links?expand=metadata,tags
   @Get()
-  findAll() {
-    return this.linksService.findAll();
+  findAll(@Query() query: { expand: string[] }) {
+    return this.linksService.findAll(
+      query.expand.includes('metadata'),
+      query.expand.includes('tags')
+    );
   }
 
+  // api/links?expand=metadata,tags
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.linksService.findOne(+id);
+  findOne(@Param('id') id: string, @Query() query: { expand: string[] }) {
+    return this.linksService.findOne(
+      id,
+      query.expand.includes('metadata'),
+      query.expand.includes('tags')
+    );
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateLinkDto: UpdateLinkDto) {
-    return this.linksService.update(+id, updateLinkDto);
+    return this.linksService.update(id, updateLinkDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.linksService.remove(+id);
+    return this.linksService.remove(id);
   }
 }
