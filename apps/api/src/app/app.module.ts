@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { HttpModule } from '@nestjs/axios';
 
 import { AppController } from './app.controller';
 
@@ -7,10 +8,11 @@ import {
   CategoriesModule,
   CertificatesModule,
 } from '@linktank/resources';
+import { AppService } from './links.service';
 
 @Module({
-  imports: [LinksModule, CategoriesModule, CertificatesModule],
+  imports: [HttpModule, LinksModule, CategoriesModule, CertificatesModule],
   controllers: [AppController],
-  providers: [],
+  providers: [AppService],
 })
 export class AppModule {}

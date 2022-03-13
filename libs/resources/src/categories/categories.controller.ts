@@ -17,6 +17,13 @@ export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Version('1')
+  @Get('status')
+  async status1() {
+    const check = await this.categoriesService.status();
+    return { message: check };
+  }
+
+  @Version('1')
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoriesService.create(createCategoryDto);
