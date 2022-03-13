@@ -33,25 +33,26 @@ export class LinksController {
   @Version('1')
   // api/links?expand=metadata,tags
   @Get()
-  findAll(@Query() query: { expand: string[] }) {
+  findAll(@Query() query: { expand: string[]; filter: string }) {
     if (query.expand) {
+      const metadata = query.expand.includes('metadata');
+      const tags = query.expand.includes('tags');
       return this.linksService.findAll(
-        query.expand.includes('metadata'),
-        query.expand.includes('tags')
+        metadata,
+        tags,
+        query.filter || undefined
       );
     }
-    return this.linksService.findAll(false, false);
+    return this.linksService.findAll(false, false, query.filter || undefined);
   }
 
   @Version('1')
   // api/links?expand=metadata,tags
   @Get(':id')
   findOne(@Param('id') id: string, @Query() query: { expand: string[] }) {
-    return this.linksService.findOne(
-      id,
-      query.expand.includes('metadata'),
-      query.expand.includes('tags')
-    );
+    const metadata = query.expand.includes('metadata');
+    const tags = query.expand.includes('tags');
+    return this.linksService.findOne(id, metadata, tags);
   }
 
   @Version('1')

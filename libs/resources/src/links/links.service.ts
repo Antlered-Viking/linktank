@@ -11,10 +11,41 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
   constructor() {
     this.prisma = new PrismaClient();
   }
-  onModuleInit() {
+  async onModuleInit() {
     this.prisma.$connect();
+    const check = await this.prisma.link.findMany();
+    if (check.length === 0) {
+      await this.prisma.link.create({
+        data: {
+          url: 'https://github.com/Antlered-Viking/linktank',
+          isRead: false,
+          tags: {
+            createMany: {
+              data: [
+                { label: 'demo' },
+                { label: 'testing' },
+                { label: 'default' },
+                { label: 'all' },
+              ],
+            },
+          },
+          metadata: {
+            create: {
+              notes: 'I am a custom note field on a link!',
+              customData: {
+                set: [
+                  'User defined string',
+                  'As many as they like',
+                  'Should not be a problem!',
+                ],
+              },
+            },
+          },
+        },
+      });
+    }
   }
-  onModuleDestroy() {
+  async onModuleDestroy() {
     this.prisma.$disconnect();
   }
 
@@ -37,8 +68,22 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
     });
   }
 
-  async findAll(metadata: boolean, tags: boolean) {
-    return await this.prisma.link.findMany({ include: { metadata, tags } });
+  async findAll(metadata: boolean, tags: boolean, tagFilter = '') {
+    if (tagFilter !== '') {
+      return await this.prisma.link.findMany({
+        include: { metadata, tags },
+        where: {
+          tags: {
+            some: {
+              label: tagFilter,
+            },
+          },
+        },
+      });
+    }
+    return await this.prisma.link.findMany({
+      include: { metadata, tags },
+    });
   }
 
   async findOne(id: string, metadata: boolean, tags: boolean) {
