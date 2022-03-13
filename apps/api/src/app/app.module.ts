@@ -4,22 +4,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import {
-  LinksController,
-  LinksService,
-  CategoriesController,
-  CategoriesService,
-  CertificatesController,
-  CertificatesService,
+  LinksModule,
+  CategoriesModule,
+  CertificatesModule,
 } from '@linktank/resources';
 
 @Module({
-  imports: [],
-  controllers: [
-    AppController,
-    LinksController,
-    CategoriesController,
-    CertificatesController,
-  ],
-  providers: [AppService, LinksService, CategoriesService, CertificatesService],
+  imports: [LinksModule, CategoriesModule, CertificatesModule],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
