@@ -23,3 +23,7 @@ input {
   box-shadow: 0px 0px 7px inset var(--primary-accent-color);
   width: 80%;
 }
+input:focus {
+  outline: none;
+  box-shadow: 0px 0px 7px inset var(--secondary-accent-color);
+}
