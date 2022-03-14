@@ -23,9 +23,47 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
   }
 
   async create(createLinkDto: CreateLinkDto) {
+    const inTags = createLinkDto.tags;
+    const tags = [];
+    const added = [];
+    if (inTags.length > 0) {
+      for (let i = 0; i < inTags.length; i++) {
+        tags.push({
+          label: inTags[i],
+        });
+      }
+    }
+    const oldTags = await this.prisma.tag.findMany({
+      where: {
+        OR: tags,
+      },
+    });
+    for (let i = 0; i < oldTags.length; i++) {
+      added.push(oldTags[i].label);
+    }
+
+    const tagConnector = [];
+    for (let i = 0; i < oldTags.length; i++) {
+      tagConnector.push({ id: oldTags[i].id });
+    }
+
+    const unAdded = inTags.filter((tag) => {
+      !added.includes(tag);
+    });
+    const newTags = [];
+    for (let i = 0; i < unAdded.length; i++) {
+      newTags.push({ label: unAdded[i] });
+    }
+
     return await this.prisma.link.create({
       data: {
         url: createLinkDto.url,
+        tags: {
+          connect: tagConnector,
+          createMany: {
+            data: newTags,
+          },
+        },
         metadata: {
           create: {
             notes: '',
