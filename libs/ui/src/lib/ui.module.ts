@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LinkComponent } from './link/link.component';
 import { ReadStateComponent } from './read-state/read-state.component';
@@ -7,7 +7,13 @@ import { DeleteButtonComponent } from './delete-button/delete-button.component';
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [LinkComponent, ReadStateComponent, EditButtonComponent, DeleteButtonComponent],
+  declarations: [
+    LinkComponent,
+    ReadStateComponent,
+    EditButtonComponent,
+    DeleteButtonComponent,
+  ],
   exports: [LinkComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class UiModule {}
