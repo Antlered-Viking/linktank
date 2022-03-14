@@ -3,7 +3,7 @@
   </linktank-read-state>
   <p hidden>{{ link.id }}</p>
   <a *ngIf="!editingURL" [href]="link.url">{{ link.url }}</a>
-  <input *ngIf="editingURL" id="edit-url-input" value="{{ link.url }}" />
+  <input *ngIf="editingURL" id="edit-url-input" class="padded" value="{{ link.url }}" />
   <div class="flex-spacer"></div>
   <div class="edit-delete">
     <linktank-edit-button class="pointer padded" (click)="toggleEditUrl()"></linktank-edit-button>
