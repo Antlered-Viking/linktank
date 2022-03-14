@@ -64,8 +64,8 @@ export class LinksController {
       false,
       false,
       query.filter || undefined,
-      query.pageNumber || 0,
-      query.pageSize || 20,
+      +query.pageNumber || 0,
+      +query.pageSize || 20,
       query.sort
     );
   }
