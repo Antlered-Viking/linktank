@@ -9,15 +9,4 @@ export class AppController {
   welcome1() {
     return this.service.getData1();
   }
-
-  @Version('1')
-  @Get('status')
-  async status1() {
-    const certificateStatus = await this.service.certificateStatus();
-    const linksStatus = await this.service.linksStatus();
-    return {
-      certificates: certificateStatus,
-      links: linksStatus,
-    };
-  }
 }

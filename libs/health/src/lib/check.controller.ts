@@ -6,7 +6,7 @@ import {
 } from '@nestjs/terminus';
 import { LinksHealthIndicator } from '@linktank/resources';
 
-@Controller('check')
+@Controller('status')
 export class CheckController {
   constructor(
     private health: HealthCheckService,
