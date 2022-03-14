@@ -17,6 +17,11 @@ import { UpdateLinkDto } from './dto/update-link.dto';
 export class LinksController {
   constructor(private readonly linksService: LinksService) {}
 
+  @Get('seed')
+  async seed() {
+    await this.linksService.seedDatabase();
+  }
+
   @Version('1')
   @Get('status')
   async status1() {
@@ -33,17 +38,33 @@ export class LinksController {
   @Version('1')
   // api/links?expand=metadata,tags
   @Get()
-  findAll(@Query() query: { expand: string[]; filter: string }) {
+  findAll(
+    @Query()
+    query: {
+      expand: string[];
+      filter: string;
+      pageNumber: number;
+      pageSize: number;
+    }
+  ) {
     if (query.expand) {
       const metadata = query.expand.includes('metadata');
       const tags = query.expand.includes('tags');
       return this.linksService.findAll(
         metadata,
         tags,
-        query.filter || undefined
+        query.filter || undefined,
+        +query.pageNumber || 0,
+        +query.pageSize || 20
       );
     }
-    return this.linksService.findAll(false, false, query.filter || undefined);
+    return this.linksService.findAll(
+      false,
+      false,
+      query.filter || undefined,
+      query.pageNumber || 0,
+      query.pageSize || 20
+    );
   }
 
   @Version('1')

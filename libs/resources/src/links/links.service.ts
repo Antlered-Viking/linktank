@@ -15,34 +15,7 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
     this.prisma.$connect();
     const check = await this.prisma.link.findMany();
     if (check.length === 0) {
-      await this.prisma.link.create({
-        data: {
-          url: 'https://github.com/Antlered-Viking/linktank',
-          isRead: false,
-          tags: {
-            createMany: {
-              data: [
-                { label: 'demo' },
-                { label: 'testing' },
-                { label: 'default' },
-                { label: 'all' },
-              ],
-            },
-          },
-          metadata: {
-            create: {
-              notes: 'I am a custom note field on a link!',
-              customData: {
-                set: [
-                  'User defined string',
-                  'As many as they like',
-                  'Should not be a problem!',
-                ],
-              },
-            },
-          },
-        },
-      });
+      this.seedDatabase();
     }
   }
   async onModuleDestroy() {
@@ -68,10 +41,18 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
     });
   }
 
-  async findAll(metadata: boolean, tags: boolean, tagFilter = '') {
+  async findAll(
+    metadata: boolean,
+    tags: boolean,
+    tagFilter = '',
+    pageNumber = 0,
+    pageSize = 20
+  ) {
     if (tagFilter !== '') {
-      return await this.prisma.link.findMany({
+      const results = await this.prisma.link.findMany({
         include: { metadata, tags },
+        skip: pageNumber * pageSize,
+        take: pageSize,
         where: {
           tags: {
             some: {
@@ -80,10 +61,32 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
           },
         },
       });
+      const totalPages = Math.max(
+        1,
+        Math.floor((await this.prisma.link.count()) / pageSize)
+      );
+      return {
+        totalPages,
+        hasPreviousPage: pageNumber > 0,
+        hasNextPage: pageNumber < totalPages,
+        data: results,
+      };
     }
-    return await this.prisma.link.findMany({
+    const results = await this.prisma.link.findMany({
       include: { metadata, tags },
+      skip: pageNumber * pageSize,
+      take: pageSize,
     });
+    const totalPages = Math.max(
+      1,
+      Math.floor((await this.prisma.link.count()) / pageSize)
+    );
+    return {
+      totalPages,
+      hasPreviousPage: pageNumber > 0,
+      hasNextPage: pageNumber < totalPages,
+      data: results,
+    };
   }
 
   async findOne(id: string, metadata: boolean, tags: boolean) {
@@ -148,5 +151,38 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
 
   async remove(id: string) {
     return await this.prisma.link.delete({ where: { id } });
+  }
+
+  async seedDatabase() {
+    for (let i = 0; i < 40; i++) {
+      await this.prisma.link.create({
+        data: {
+          url: `Demo Link ${i}`,
+          isRead: false,
+          tags: {
+            createMany: {
+              data: [
+                { label: 'demo' },
+                { label: 'testing' },
+                { label: 'default' },
+                { label: 'all' },
+              ],
+            },
+          },
+          metadata: {
+            create: {
+              notes: 'I am a custom note field on a link!',
+              customData: {
+                set: [
+                  'User defined string',
+                  'As many as they like',
+                  'Should not be a problem!',
+                ],
+              },
+            },
+          },
+        },
+      });
+    }
   }
 }
