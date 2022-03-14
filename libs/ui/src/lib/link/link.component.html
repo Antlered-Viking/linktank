@@ -2,7 +2,7 @@
   <linktank-read-state class="pointer padded" [isRead]="link.isRead" (click)="toggleReadStatus()">
   </linktank-read-state>
   <p hidden>{{ link.id }}</p>
-  <a *ngIf="!editingURL" [href]="link.url">{{ link.url }}</a>
+  <a *ngIf="!editingURL" [href]="link.url" target="_blank">{{ link.url }}</a>
   <input *ngIf="editingURL" id="edit-url-input" class="padded" value="{{ link.url }}" />
   <div class="flex-spacer"></div>
   <div class="edit-delete">
