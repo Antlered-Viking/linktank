@@ -130,7 +130,10 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
       }
     }
 
-    const result = await this.prisma.link.create({
+    const result = await this.prisma.link.update({
+      where: {
+        id,
+      },
       data: {
         url: updateLinkDto.url || cur.url,
         isRead: updateLinkDto.isRead || cur.isRead,
@@ -155,35 +158,28 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
   }
 
   async seedDatabase() {
-    for (let i = 0; i < 40; i++) {
-      await this.prisma.link.create({
-        data: {
-          url: `Demo Link ${i}`,
-          isRead: false,
-          tags: {
-            createMany: {
-              data: [
-                { label: 'demo' },
-                { label: 'testing' },
-                { label: 'default' },
-                { label: 'all' },
+    await this.prisma.link.create({
+      data: {
+        url: 'https://github.com/Antlered-Viking/linktank',
+        isRead: false,
+        tags: {
+          createMany: {
+            data: [{ label: 'demo' }, { label: 'testing' }],
+          },
+        },
+        metadata: {
+          create: {
+            notes: 'I am a custom note field on a link!',
+            customData: {
+              set: [
+                'User defined string',
+                'As many as they like',
+                'Should not be a problem!',
               ],
             },
           },
-          metadata: {
-            create: {
-              notes: 'I am a custom note field on a link!',
-              customData: {
-                set: [
-                  'User defined string',
-                  'As many as they like',
-                  'Should not be a problem!',
-                ],
-              },
-            },
-          },
         },
-      });
-    }
+      },
+    });
   }
 }
