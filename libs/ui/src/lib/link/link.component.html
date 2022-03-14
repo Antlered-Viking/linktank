@@ -1,21 +1,12 @@
 <div *ngIf="link" class="link-unit">
-  <linktank-read-state
-    class="pointer padded"
-    [isRead]="link.isRead"
-    (click)="toggleReadStatus()"
-  >
+  <linktank-read-state class="pointer padded" [isRead]="link.isRead" (click)="toggleReadStatus()">
   </linktank-read-state>
   <p hidden>{{ link.id }}</p>
-  <a [href]="link.url">{{ link.url }}</a>
+  <a *ngIf="!editingURL" [href]="link.url">{{ link.url }}</a>
+  <input *ngIf="editingURL" id="edit-url-input" value="{{ link.url }}" />
   <div class="flex-spacer"></div>
   <div class="edit-delete">
-    <linktank-edit-button
-      class="pointer padded"
-      (click)="toggleEditUrl()"
-    ></linktank-edit-button>
-    <linktank-delete-button
-      class="pointer padded"
-      (click)="deleteLink()"
-    ></linktank-delete-button>
+    <linktank-edit-button class="pointer padded" (click)="toggleEditUrl()"></linktank-edit-button>
+    <linktank-delete-button class="pointer padded" (click)="deleteLink()"></linktank-delete-button>
   </div>
 </div>
