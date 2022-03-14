@@ -24,6 +24,7 @@
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/terminus": "^8.0.4",
     "@nrwl/angular": "13.8.8-beta.1",
     "@prisma/client": "^3.10.0",
     "reflect-metadata": "^0.1.13",
