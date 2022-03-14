@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@linktank/health": ["libs/health/src/index.ts"],
       "@linktank/resources": ["libs/resources/src/index.ts"],
       "@linktank/ui": ["libs/ui/src/index.ts"]
     }

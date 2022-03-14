@@ -17,13 +17,6 @@ export class CertificatesController {
   constructor(private readonly certificatesService: CertificatesService) {}
 
   @Version('1')
-  @Get('status')
-  async status1() {
-    const check = await this.certificatesService.status();
-    return { message: check };
-  }
-
-  @Version('1')
   @Post()
   create(@Body() createCertificateDto: CreateCertificateDto) {
     return this.certificatesService.create(createCertificateDto);

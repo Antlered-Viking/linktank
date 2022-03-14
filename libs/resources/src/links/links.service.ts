@@ -22,11 +22,6 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
     this.prisma.$disconnect();
   }
 
-  async status() {
-    const check = await this.prisma.link.findMany();
-    return check.length > 0 ? 'OK' : 'FAIL';
-  }
-
   async create(createLinkDto: CreateLinkDto) {
     return await this.prisma.link.create({
       data: {
