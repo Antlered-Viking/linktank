@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
-import { TerminusModule } from '@nestjs/terminus';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { LinksModule, CertificatesModule } from '@linktank/resources';
+import { HealthModule } from '@linktank/health';
 
 @Module({
-  imports: [HttpModule, TerminusModule, LinksModule, CertificatesModule],
+  imports: [HttpModule, LinksModule, CertificatesModule, HealthModule],
   controllers: [AppController],
   providers: [AppService],
 })

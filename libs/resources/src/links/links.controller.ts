@@ -23,13 +23,6 @@ export class LinksController {
   }
 
   @Version('1')
-  @Get('status')
-  async status1() {
-    const check = await this.linksService.status();
-    return { message: check };
-  }
-
-  @Version('1')
   @Post()
   create(@Body() createLinkDto: CreateLinkDto) {
     return this.linksService.create(createLinkDto);
