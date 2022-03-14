@@ -18,14 +18,6 @@ export class AppService {
     );
   }
 
-  async categoryStatus() {
-    return await lastValueFrom(
-      this.http
-        .get('http://localhost:3333/api/v1/categories/status')
-        .pipe(map((res) => res.data.message))
-    );
-  }
-
   async linksStatus() {
     return await lastValueFrom(
       this.http

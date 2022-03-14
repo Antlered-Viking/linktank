@@ -14,11 +14,9 @@ export class AppController {
   @Get('status')
   async status1() {
     const certificateStatus = await this.service.certificateStatus();
-    const categoryStatus = await this.service.categoryStatus();
     const linksStatus = await this.service.linksStatus();
     return {
       certificates: certificateStatus,
-      categories: categoryStatus,
       links: linksStatus,
     };
   }
