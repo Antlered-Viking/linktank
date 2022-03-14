@@ -45,6 +45,7 @@ export class LinksController {
       filter: string;
       pageNumber: number;
       pageSize: number;
+      sort: 'asc' | 'desc';
     }
   ) {
     if (query.expand) {
@@ -55,7 +56,8 @@ export class LinksController {
         tags,
         query.filter || undefined,
         +query.pageNumber || 0,
-        +query.pageSize || 20
+        +query.pageSize || 20,
+        query.sort
       );
     }
     return this.linksService.findAll(
@@ -63,7 +65,8 @@ export class LinksController {
       false,
       query.filter || undefined,
       query.pageNumber || 0,
-      query.pageSize || 20
+      query.pageSize || 20,
+      query.sort
     );
   }
 

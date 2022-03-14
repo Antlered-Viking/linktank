@@ -2,7 +2,7 @@ import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { CreateLinkDto } from './dto/create-link.dto';
 import { UpdateLinkDto } from './dto/update-link.dto';
 
-import { PrismaClient } from '@prisma/client';
+import { Link, Metadata, PrismaClient, Tag } from '@prisma/client';
 
 @Injectable()
 export class LinksService implements OnModuleInit, OnModuleDestroy {
@@ -46,13 +46,23 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
     tags: boolean,
     tagFilter = '',
     pageNumber = 0,
-    pageSize = 20
+    pageSize = 20,
+    sort = 'asc'
   ) {
+    const totalPages = Math.max(
+      1,
+      Math.floor((await this.prisma.link.count()) / pageSize)
+    );
+    let results: (Link & { tags: Tag[]; metadata: Metadata })[];
+
     if (tagFilter !== '') {
-      const results = await this.prisma.link.findMany({
+      results = await this.prisma.link.findMany({
         include: { metadata, tags },
         skip: pageNumber * pageSize,
         take: pageSize,
+        orderBy: {
+          url: sort === 'asc' ? 'asc' : 'desc',
+        },
         where: {
           tags: {
             some: {
@@ -61,30 +71,21 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
           },
         },
       });
-      const totalPages = Math.max(
-        1,
-        Math.floor((await this.prisma.link.count()) / pageSize)
-      );
-      return {
-        totalPages,
-        hasPreviousPage: pageNumber > 0,
-        hasNextPage: pageNumber < totalPages,
-        data: results,
-      };
+    } else {
+      results = await this.prisma.link.findMany({
+        include: { metadata, tags },
+        skip: pageNumber * pageSize,
+        take: pageSize,
+        orderBy: {
+          url: sort === 'asc' ? 'asc' : 'desc',
+        },
+      });
     }
-    const results = await this.prisma.link.findMany({
-      include: { metadata, tags },
-      skip: pageNumber * pageSize,
-      take: pageSize,
-    });
-    const totalPages = Math.max(
-      1,
-      Math.floor((await this.prisma.link.count()) / pageSize)
-    );
     return {
       totalPages,
       hasPreviousPage: pageNumber > 0,
       hasNextPage: pageNumber < totalPages,
+      sort,
       data: results,
     };
   }
