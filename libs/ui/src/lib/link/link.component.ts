@@ -8,13 +8,15 @@ import { Link } from '@prisma/client';
 })
 export class LinkComponent {
   @Input()
-  link: Link | undefined;
+  link: Link;
   editingURL = false;
 
+  constructor() {
+    this.link = { id: '-1', url: 'INVALID', isRead: false, metadataId: '-1' };
+  }
+
   toggleReadStatus() {
-    if (this.link) {
-      this.link.isRead = !this.link?.isRead;
-    }
+    this.link.isRead = !this.link.isRead;
   }
 
   toggleEditUrl() {
