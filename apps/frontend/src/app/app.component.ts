@@ -8,7 +8,7 @@ import { AppService } from './app.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'frontend';
+  title = 'linktank';
   links: Link[];
 
   constructor(private appService: AppService) {
