@@ -1,12 +1,17 @@
 <div *ngIf="link" class="link-unit">
-  <linktank-read-state class="pointer padded" [isRead]="link.isRead" (click)="toggleReadStatus()">
-  </linktank-read-state>
+  <div class="pointer padded" style="color: red;">
+    <img [src]="link.isRead ? 'assets/check-icon.svg' : 'assets/eye-icon.svg'" (click)="toggleReadStatus()" />
+  </div>
   <p hidden>{{ link.id }}</p>
   <a *ngIf="!editingURL" [href]="link.url" target="_blank">{{ link.url }}</a>
   <input *ngIf="editingURL" id="edit-url-input" class="padded" value="{{ link.url }}" />
   <div class="flex-spacer"></div>
   <div class="edit-delete">
-    <linktank-edit-button class="pointer padded" (click)="toggleEditUrl()"></linktank-edit-button>
-    <linktank-delete-button class="pointer padded" (click)="deleteLink()"></linktank-delete-button>
+    <div class="pointer padded" (click)="toggleEditUrl()">
+      <img src="assets/edit-icon.svg" />
+    </div>
+    <div class="pointer padded" (click)="deleteLink()">
+      <img src="assets/delete-icon.svg" />
+    </div>
   </div>
 </div>
