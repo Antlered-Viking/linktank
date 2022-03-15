@@ -36,3 +36,11 @@ a:hover,
   flex-wrap: nowrap;
   color: var(--primary-accent-color);
 }
+.icon {
+  filter: invert(92%) sepia(0%) saturate(253%) hue-rotate(250deg)
+    brightness(88%) contrast(82%);
+}
+.icon:hover {
+  filter: invert(43%) sepia(99%) saturate(2632%) hue-rotate(2deg)
+    brightness(105%) contrast(104%);
+}

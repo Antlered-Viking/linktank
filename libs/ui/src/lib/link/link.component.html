@@ -1,6 +1,7 @@
 <div *ngIf="link" class="link-unit">
-  <div class="pointer padded" style="color: red;">
-    <img [src]="link.isRead ? 'assets/check-icon.svg' : 'assets/eye-icon.svg'" (click)="toggleReadStatus()" />
+  <div class="pointer padded">
+    <img class="icon" [src]="link.isRead ? 'assets/check-icon.svg' : 'assets/eye-icon.svg'"
+      (click)="toggleReadStatus()" />
   </div>
   <p hidden>{{ link.id }}</p>
   <a *ngIf="!editingURL" [href]="link.url" target="_blank">{{ link.url }}</a>
@@ -8,10 +9,10 @@
   <div class="flex-spacer"></div>
   <div class="edit-delete">
     <div class="pointer padded" (click)="toggleEditUrl()">
-      <img src="assets/edit-icon.svg" />
+      <img class="icon" src="assets/edit-icon.svg" />
     </div>
     <div class="pointer padded" (click)="deleteLink()">
-      <img src="assets/delete-icon.svg" />
+      <img class="icon" src="assets/delete-icon.svg" />
     </div>
   </div>
 </div>
