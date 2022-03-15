@@ -25,7 +25,7 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
   async create(createLinkDto: CreateLinkDto) {
     const inTags = createLinkDto.tags;
     const tags = [];
-    const added = [];
+    const added: string[] = [];
     if (inTags.length > 0) {
       for (let i = 0; i < inTags.length; i++) {
         tags.push({
@@ -144,7 +144,11 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
 
     if (updateLinkDto.tags) {
       const deadTags = [];
-      for (let i = 0; i < cur.tags.length; i++) {
+      let tagLength = 0;
+      if (cur.tags) {
+        tagLength = cur.tags.length;
+      }
+      for (let i = 0; i < tagLength; i++) {
         if (!updateLinkDto.tags.includes(cur.tags[i].label)) {
           deadTags.push({ id: cur.tags[i].id });
         }

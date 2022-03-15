@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Link } from '@prisma/client';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
+import { UpdateLinkDto } from '@linktank/resources';
 @Component({
   selector: 'linktank-link',
   templateUrl: './link.component.html',
@@ -32,7 +33,7 @@ export class LinkComponent {
     this.link = await lastValueFrom(
       this.http.patch<Link>(
         `http://localhost:3333/api/v1/links/${this.link.id}`,
-        this.link
+        this.link as UpdateLinkDto
       )
     );
   }
