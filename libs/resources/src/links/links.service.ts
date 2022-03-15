@@ -135,54 +135,79 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
       where: { id },
       include: { metadata: true, tags: true },
     });
+    let result: {
+      id: string;
+      url: string;
+      isRead: boolean;
+      metadataId: string;
+    };
 
-    const deadTags = [];
-    for (let i = 0; i < cur.tags.length; i++) {
-      if (!updateLinkDto.tags.includes(cur.tags[i].label)) {
-        deadTags.push({ id: cur.tags[i].id });
+    if (updateLinkDto.tags) {
+      const deadTags = [];
+      for (let i = 0; i < cur.tags.length; i++) {
+        if (!updateLinkDto.tags.includes(cur.tags[i].label)) {
+          deadTags.push({ id: cur.tags[i].id });
+        }
       }
-    }
-    if (deadTags.length > 0) {
-      await this.prisma.tag.deleteMany({
+      if (deadTags.length > 0) {
+        await this.prisma.tag.deleteMany({
+          where: {
+            OR: deadTags,
+          },
+        });
+      }
+
+      const curTags = [];
+      for (let i = 0; i < cur.tags.length; i++) {
+        curTags.push(cur.tags[i].label);
+      }
+
+      const newTags = [];
+      for (let i = 0; i < updateLinkDto.tags.length; i++) {
+        updateLinkDto.tags[i];
+        if (!curTags.includes(updateLinkDto.tags[i])) {
+          newTags.push({ label: updateLinkDto.tags[i] });
+        }
+      }
+
+      result = await this.prisma.link.update({
         where: {
-          OR: deadTags,
+          id,
+        },
+        data: {
+          url: updateLinkDto.url || cur.url,
+          isRead: updateLinkDto.isRead || cur.isRead,
+          tags: {
+            createMany: {
+              data: newTags,
+            },
+          },
+          metadata: {
+            create: {
+              notes: updateLinkDto.notes || cur.metadata.notes,
+              customData: updateLinkDto.customData || cur.metadata.customData,
+            },
+          },
+        },
+      });
+    } else {
+      result = await this.prisma.link.update({
+        where: {
+          id,
+        },
+        data: {
+          url: updateLinkDto.url || cur.url,
+          isRead: updateLinkDto.isRead || cur.isRead,
+          metadata: {
+            create: {
+              notes: updateLinkDto.notes || cur.metadata.notes,
+              customData: updateLinkDto.customData || cur.metadata.customData,
+            },
+          },
         },
       });
     }
 
-    const curTags = [];
-    for (let i = 0; i < cur.tags.length; i++) {
-      curTags.push(cur.tags[i].label);
-    }
-
-    const newTags = [];
-    for (let i = 0; i < updateLinkDto.tags.length; i++) {
-      updateLinkDto.tags[i];
-      if (!curTags.includes(updateLinkDto.tags[i])) {
-        newTags.push({ label: updateLinkDto.tags[i] });
-      }
-    }
-
-    const result = await this.prisma.link.update({
-      where: {
-        id,
-      },
-      data: {
-        url: updateLinkDto.url || cur.url,
-        isRead: updateLinkDto.isRead || cur.isRead,
-        tags: {
-          createMany: {
-            data: newTags,
-          },
-        },
-        metadata: {
-          create: {
-            notes: updateLinkDto.notes || cur.metadata.notes,
-            customData: updateLinkDto.customData || cur.metadata.customData,
-          },
-        },
-      },
-    });
     return result;
   }
 
