@@ -32,7 +32,7 @@ export class LinkComponent {
     this.link = await lastValueFrom(
       this.http.patch<Link>(
         `http://localhost:3333/api/v1/links/${this.link.id}`,
-        this.link as Link
+        this.link
       )
     );
   }
