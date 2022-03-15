@@ -18,12 +18,10 @@ input {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: inherit;
   border-radius: 0.25rem;
-  border-style: none;
-  border-color: var(--secondary-accent-color);
-  box-shadow: 0px 0px 7px inset var(--primary-accent-color);
+  border-color: var(--primary-accent-color);
   width: 80%;
 }
 input:focus {
-  outline: none;
-  box-shadow: 0px 0px 7px inset var(--secondary-accent-color);
+  outline: solid;
+  outline-color: var(--secondary-accent-color);
 }
