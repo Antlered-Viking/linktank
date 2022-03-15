@@ -1,6 +1,6 @@
 export class CreateLinkDto {
   url: string;
-  tags?: string[];
+  tags: string[];
 
   constructor(url = 'INVALID', tags: string[] = []) {
     this.url = url;
