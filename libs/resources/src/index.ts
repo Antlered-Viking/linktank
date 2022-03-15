@@ -6,3 +6,6 @@ export * from './certificates/certificates.service';
 
 export * from './links/links.health';
 // export * from './certificates/certificates.health';
+
+export * from './links/dto/create-link.dto';
+export * from './links/dto/update-link.dto';
