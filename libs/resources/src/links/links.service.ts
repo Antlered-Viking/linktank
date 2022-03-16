@@ -2,7 +2,7 @@ import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { CreateLinkDto } from './dto/create-link.dto';
 import { UpdateLinkDto } from './dto/update-link.dto';
 
-import { Link, Metadata, PrismaClient, Tag } from '@prisma/client';
+import { Link, Metadata, PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class LinksService implements OnModuleInit, OnModuleDestroy {
@@ -23,47 +23,10 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
   }
 
   async create(createLinkDto: CreateLinkDto) {
-    const inTags = createLinkDto.tags;
-    const tags: { label: string }[] = [];
-    const added: string[] = [];
-    if (inTags.length > 0) {
-      for (let i = 0; i < inTags.length; i++) {
-        tags.push({
-          label: inTags[i],
-        });
-      }
-    }
-    const oldTags = await this.prisma.tag.findMany({
-      where: {
-        OR: tags,
-      },
-    });
-    for (let i = 0; i < oldTags.length; i++) {
-      added.push(oldTags[i].label);
-    }
-
-    const tagConnector = [];
-    for (let i = 0; i < oldTags.length; i++) {
-      tagConnector.push({ id: oldTags[i].id });
-    }
-
-    const unAdded = inTags.filter((tag) => {
-      !added.includes(tag);
-    });
-    const newTags = [];
-    for (let i = 0; i < unAdded.length; i++) {
-      newTags.push({ label: unAdded[i] });
-    }
-
     return await this.prisma.link.create({
       data: {
         url: createLinkDto.url,
-        tags: {
-          connect: tagConnector,
-          createMany: {
-            data: newTags,
-          },
-        },
+        tags: { set: createLinkDto.tags },
         metadata: {
           create: {
             notes: '',
@@ -86,11 +49,11 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
       +1,
       Math.floor((await this.prisma.link.count()) / pageSize)
     );
-    let results: (Link & { tags: Tag[]; metadata: Metadata })[];
+    let results: (Link & { metadata: Metadata })[];
 
     if (tagFilter !== '') {
       results = await this.prisma.link.findMany({
-        include: { metadata, tags },
+        include: { metadata },
         skip: pageNumber * pageSize,
         take: pageSize,
         orderBy: {
@@ -98,15 +61,13 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
         },
         where: {
           tags: {
-            some: {
-              label: tagFilter,
-            },
+            hasSome: tagFilter,
           },
         },
       });
     } else {
       results = await this.prisma.link.findMany({
-        include: { metadata, tags },
+        include: { metadata },
         skip: pageNumber * pageSize,
         take: pageSize,
         orderBy: {
@@ -126,14 +87,20 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
   async findOne(id: string, metadata: boolean, tags: boolean) {
     return await this.prisma.link.findUnique({
       where: { id },
-      include: { metadata, tags },
+      select: {
+        id: true,
+        url: true,
+        isRead: true,
+        metadata,
+        tags,
+      },
     });
   }
 
   async update(id: string, updateLinkDto: UpdateLinkDto) {
     const cur = await this.prisma.link.findUnique({
       where: { id },
-      include: { metadata: true, tags: true },
+      include: { metadata: true },
     });
     let result: {
       id: string;
@@ -143,33 +110,6 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
     };
     if (cur) {
       if (updateLinkDto.tags) {
-        const deadTags = [];
-        for (let i = 0; i < cur.tags.length; i++) {
-          if (!updateLinkDto.tags.includes(cur.tags[i].label)) {
-            deadTags.push({ id: cur.tags[i].id });
-          }
-        }
-        if (deadTags.length > 0) {
-          await this.prisma.tag.deleteMany({
-            where: {
-              OR: deadTags,
-            },
-          });
-        }
-
-        const curTags = [];
-        for (let i = 0; i < cur.tags.length; i++) {
-          curTags.push(cur.tags[i].label);
-        }
-
-        const newTags = [];
-        for (let i = 0; i < updateLinkDto.tags.length; i++) {
-          updateLinkDto.tags[i];
-          if (!curTags.includes(updateLinkDto.tags[i])) {
-            newTags.push({ label: updateLinkDto.tags[i] });
-          }
-        }
-
         result = await this.prisma.link.update({
           where: {
             id,
@@ -177,33 +117,7 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
           data: {
             url: updateLinkDto.url || cur.url,
             isRead: updateLinkDto.isRead || cur.isRead,
-            tags: {
-              createMany: {
-                data: newTags,
-              },
-            },
-            metadata: {
-              connectOrCreate: {
-                where: {
-                  id: cur.metadataId,
-                },
-                create: {
-                  notes: updateLinkDto.notes || cur.metadata.notes,
-                  customData:
-                    updateLinkDto.customData || cur.metadata.customData,
-                },
-              },
-            },
-          },
-        });
-      } else {
-        result = await this.prisma.link.update({
-          where: {
-            id,
-          },
-          data: {
-            url: updateLinkDto.url || cur.url,
-            isRead: updateLinkDto.isRead || cur.isRead,
+            tags: updateLinkDto.tags || cur.tags,
             metadata: {
               connectOrCreate: {
                 where: {
@@ -233,11 +147,7 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
       data: {
         url: 'https://github.com/Antlered-Viking/linktank',
         isRead: false,
-        tags: {
-          createMany: {
-            data: [{ label: 'demo' }, { label: 'testing' }],
-          },
-        },
+        tags: { set: ['demo', 'testing'] },
         metadata: {
           create: {
             notes: 'I am a custom note field on a link!',

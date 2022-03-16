@@ -1,14 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 
 interface Link {
   id: string;
   url: string;
-  isRead?: boolean;
-  tags?: string[];
-  notes?: string;
-  customData?: string[];
+  isRead: boolean;
+  tags: { id: string; label: string }[];
+  notes: string;
+  customData: string[];
   metadataId: string;
 }
 
@@ -17,7 +17,7 @@ interface Link {
   templateUrl: './link.component.html',
   styleUrls: ['./link.component.scss'],
 })
-export class LinkComponent {
+export class LinkComponent implements OnInit {
   @Input()
   link: Link = {
     id: '-1',
@@ -31,6 +31,10 @@ export class LinkComponent {
   editingURL = false;
 
   constructor(private readonly http: HttpClient) {}
+
+  ngOnInit(): void {
+    console.log(this.link);
+  }
 
   async toggleReadStatus() {
     this.link.isRead = !this.link.isRead;
@@ -47,9 +51,19 @@ export class LinkComponent {
   }
 
   async updateLink() {
+    const tags = [];
+    if (this.link.tags) {
+      for (let i = 0; i < this.link.tags.length; i++) {
+        tags.push(this.link.tags[i].label);
+      }
+    }
     const update = {
       url: this.link.url,
       isRead: this.link.isRead,
+      tags: this.link.tags,
+      notes: this.link.notes,
+      customData: this.link.customData,
+      metadataId: this.link.metadataId,
     };
     this.link = await lastValueFrom(
       this.http.patch<Link>(
