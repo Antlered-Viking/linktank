@@ -5,7 +5,7 @@ import { UiModule } from '@linktank/ui';
 import { LinkComponent } from '@linktank/ui';
 
 const routes: Routes = [
-  // { path: 'home', component: AppComponent },
+  { path: 'home', component: AppComponent },
   {
     path: 'link',
     component: LinkComponent,
