@@ -56,6 +56,37 @@ a:hover,
     brightness(105%) contrast(104%);
 }
 .tags {
-  padding: 0 0.375rem;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 0 0 0.375rem;
   font-style: italic;
+}
+.tags span {
+  margin: 0 0.125rem;
+}
+.tag-input,
+.edit-url-input {
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: inherit;
+  border: 0.125rem solid;
+  border-radius: 0.25rem;
+  border-color: var(--primary-accent-color);
+}
+.tag-input:focus,
+.edit-url-input:focus {
+  outline: none;
+  border: 0.125rem solid;
+  border-radius: 0.25rem;
+  border-color: var(--secondary-accent-color);
+}
+.edit-url-input {
+  width: 80%;
+}
+.tag-input-container {
+  width: 25%;
+}
+.tag-input {
+  width: 90%;
 }
