@@ -45,10 +45,7 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
     pageSize = 20,
     sort = 'asc'
   ) {
-    const totalPages = Math.max(
-      +1,
-      Math.floor((await this.prisma.link.count()) / pageSize)
-    );
+    const totalPages = Math.floor((await this.prisma.link.count()) / pageSize);
     let results: (Link & { metadata: Metadata })[];
 
     if (tagFilter !== '') {
