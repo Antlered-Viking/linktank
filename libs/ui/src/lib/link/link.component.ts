@@ -30,7 +30,9 @@ export class LinkComponent implements OnInit {
   };
   editingURL = false;
   addingTag = false;
+  editingTag = false;
   tagInput = '';
+  editTagInput = '';
 
   constructor(private readonly http: HttpClient) {}
 
@@ -49,6 +51,10 @@ export class LinkComponent implements OnInit {
 
   toggleAddTag() {
     this.addingTag = !this.addingTag;
+  }
+
+  toggleEditTag() {
+    this.editingTag = !this.editingTag;
   }
 
   async deleteLink() {
@@ -91,5 +97,9 @@ export class LinkComponent implements OnInit {
     this.updateLink();
     this.toggleAddTag();
     this.tagInput = '';
+  }
+
+  async editTag(editedTag: string) {
+    // TODO make this only activate the one tag
   }
 }

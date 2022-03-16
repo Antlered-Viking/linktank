@@ -20,9 +20,11 @@
   <div class="tags">
     <span *ngFor="let tag of link.tags">
       <span class="tag"> <a [href]="'http://localhost:3333/api/v1/links?filter='+tag"
-          style="color: var(--secondary-accent-color)">#</a>{{ tag }} </span>
+          style="color: var(--secondary-accent-color)">#</a>
+        <span class="tag-text" (click)="toggleEditTag()">{{ tag }}</span>
+      </span>
     </span>
-    <span *ngIf="addingTag" class="tag-input-container">
+    <span *ngIf=" addingTag" class="tag-input-container">
       <input type=" text" class="tag-input" name="tagInput" [(ngModel)]="tagInput" (keydown.enter)="addTag(tagInput)">
     </span>
     <span class="pointer" (click)="toggleAddTag()">
