@@ -1,4 +1,30 @@
-<div *ngIf="link">
+<div *ngIf="link" class="link-unit">
+  <div class="pointer padded">
+    <img
+      class="icon"
+      [src]="link.isRead ? 'assets/check-icon.svg' : 'assets/eye-icon.svg'"
+      (click)="toggleReadStatus()"
+    />
+  </div>
   <p hidden>{{ link.id }}</p>
-  <a [href]="link.url">{{ link.url }}</a>
+  <a *ngIf="!editingURL" [href]="link.url" target="_blank">{{ link.url }}</a>
+  <input
+    *ngIf="editingURL"
+    id="edit-url-input"
+    [value]="link.url"
+    [(ngModel)]="link.url"
+    (change)="updateUrl()"
+  />
+  <div class="flex-spacer"></div>
+  <div class="edit-delete">
+    <div class="pointer padded" (click)="toggleEditUrl()">
+      <img class="icon" src="assets/edit-icon.svg" />
+    </div>
+    <div class="pointer padded" (click)="deleteLink()">
+      <img class="icon" src="assets/delete-icon.svg" />
+    </div>
+  </div>
 </div>
+<span class="tags" *ngFor="let tag of link.tags">
+  <span class="tag"> #{{ tag }} </span>
+</span>

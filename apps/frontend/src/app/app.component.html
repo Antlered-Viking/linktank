@@ -1,4 +1,4 @@
-<!-- <linktank-nx-welcome></linktank-nx-welcome> -->
-<div *ngFor="let link of links">
+<linktank-header [title]="title"></linktank-header>
+<div class="link-container" *ngFor="let link of links">
   <linktank-link [link]="link"></linktank-link>
 </div>

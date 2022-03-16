@@ -67,9 +67,13 @@ export class LinksController {
   // api/links?expand=metadata,tags
   @Get(':id')
   findOne(@Param('id') id: string, @Query() query: { expand: string[] }) {
-    const metadata = query.expand.includes('metadata');
-    const tags = query.expand.includes('tags');
-    return this.linksService.findOne(id, metadata, tags);
+    if (query.expand) {
+      const metadata = query.expand.includes('metadata');
+      const tags = query.expand.includes('tags');
+      return this.linksService.findOne(id, metadata, tags);
+    } else {
+      return this.linksService.findOne(id, false, false);
+    }
   }
 
   @Version('1')

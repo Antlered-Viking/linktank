@@ -2,7 +2,7 @@ import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { CreateLinkDto } from './dto/create-link.dto';
 import { UpdateLinkDto } from './dto/update-link.dto';
 
-import { Link, Metadata, PrismaClient, Tag } from '@prisma/client';
+import { Link, Metadata, PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class LinksService implements OnModuleInit, OnModuleDestroy {
@@ -23,47 +23,10 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
   }
 
   async create(createLinkDto: CreateLinkDto) {
-    const inTags = createLinkDto.tags;
-    const tags = [];
-    const added = [];
-    if (inTags.length > 0) {
-      for (let i = 0; i < inTags.length; i++) {
-        tags.push({
-          label: inTags[i],
-        });
-      }
-    }
-    const oldTags = await this.prisma.tag.findMany({
-      where: {
-        OR: tags,
-      },
-    });
-    for (let i = 0; i < oldTags.length; i++) {
-      added.push(oldTags[i].label);
-    }
-
-    const tagConnector = [];
-    for (let i = 0; i < oldTags.length; i++) {
-      tagConnector.push({ id: oldTags[i].id });
-    }
-
-    const unAdded = inTags.filter((tag) => {
-      !added.includes(tag);
-    });
-    const newTags = [];
-    for (let i = 0; i < unAdded.length; i++) {
-      newTags.push({ label: unAdded[i] });
-    }
-
     return await this.prisma.link.create({
       data: {
         url: createLinkDto.url,
-        tags: {
-          connect: tagConnector,
-          createMany: {
-            data: newTags,
-          },
-        },
+        tags: { set: createLinkDto.tags },
         metadata: {
           create: {
             notes: '',
@@ -82,15 +45,19 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
     pageSize = 20,
     sort = 'asc'
   ) {
-    const totalPages = Math.max(
-      +1,
-      Math.floor((await this.prisma.link.count()) / pageSize)
-    );
-    let results: (Link & { tags: Tag[]; metadata: Metadata })[];
+    const totalPages = Math.floor((await this.prisma.link.count()) / pageSize);
+    let results: (Link & { metadata: Metadata })[];
 
     if (tagFilter !== '') {
       results = await this.prisma.link.findMany({
-        include: { metadata, tags },
+        select: {
+          id: true,
+          url: true,
+          isRead: true,
+          metadataId: true,
+          metadata,
+          tags,
+        },
         skip: pageNumber * pageSize,
         take: pageSize,
         orderBy: {
@@ -98,15 +65,20 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
         },
         where: {
           tags: {
-            some: {
-              label: tagFilter,
-            },
+            hasSome: tagFilter,
           },
         },
       });
     } else {
       results = await this.prisma.link.findMany({
-        include: { metadata, tags },
+        select: {
+          id: true,
+          url: true,
+          isRead: true,
+          metadataId: true,
+          metadata,
+          tags,
+        },
         skip: pageNumber * pageSize,
         take: pageSize,
         orderBy: {
@@ -126,63 +98,50 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
   async findOne(id: string, metadata: boolean, tags: boolean) {
     return await this.prisma.link.findUnique({
       where: { id },
-      include: { metadata, tags },
+      select: {
+        id: true,
+        url: true,
+        isRead: true,
+        metadata,
+        tags,
+      },
     });
   }
 
   async update(id: string, updateLinkDto: UpdateLinkDto) {
-    const cur = await this.prisma.link.findUnique({
-      where: { id },
-      include: { metadata: true, tags: true },
-    });
-
-    const deadTags = [];
-    for (let i = 0; i < cur.tags.length; i++) {
-      if (!updateLinkDto.tags.includes(cur.tags[i].label)) {
-        deadTags.push({ id: cur.tags[i].id });
+    let result: {
+      id: string;
+      url: string;
+      isRead: boolean;
+      metadataId: string;
+    };
+    if (updateLinkDto.tags) {
+      const curMeta = await this.prisma.metadata.findUnique({
+        where: { id: updateLinkDto.metadataId },
+      });
+      if (
+        updateLinkDto.notes !== curMeta.notes ||
+        updateLinkDto.customData !== curMeta.customData
+      ) {
+        await this.prisma.metadata.update({
+          where: { id: curMeta.id },
+          data: {
+            notes: updateLinkDto.notes,
+            customData: updateLinkDto.customData,
+          },
+        });
       }
-    }
-    if (deadTags.length > 0) {
-      await this.prisma.tag.deleteMany({
+      result = await this.prisma.link.update({
         where: {
-          OR: deadTags,
+          id,
+        },
+        data: {
+          url: updateLinkDto.url,
+          isRead: updateLinkDto.isRead,
+          tags: updateLinkDto.tags,
         },
       });
     }
-
-    const curTags = [];
-    for (let i = 0; i < cur.tags.length; i++) {
-      curTags.push(cur.tags[i].label);
-    }
-
-    const newTags = [];
-    for (let i = 0; i < updateLinkDto.tags.length; i++) {
-      updateLinkDto.tags[i];
-      if (!curTags.includes(updateLinkDto.tags[i])) {
-        newTags.push({ label: updateLinkDto.tags[i] });
-      }
-    }
-
-    const result = await this.prisma.link.update({
-      where: {
-        id,
-      },
-      data: {
-        url: updateLinkDto.url || cur.url,
-        isRead: updateLinkDto.isRead || cur.isRead,
-        tags: {
-          createMany: {
-            data: newTags,
-          },
-        },
-        metadata: {
-          create: {
-            notes: updateLinkDto.notes || cur.metadata.notes,
-            customData: updateLinkDto.customData || cur.metadata.customData,
-          },
-        },
-      },
-    });
     return result;
   }
 
@@ -195,11 +154,7 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
       data: {
         url: 'https://github.com/Antlered-Viking/linktank',
         isRead: false,
-        tags: {
-          createMany: {
-            data: [{ label: 'demo' }, { label: 'testing' }],
-          },
-        },
+        tags: { set: ['demo', 'testing'] },
         metadata: {
           create: {
             notes: 'I am a custom note field on a link!',

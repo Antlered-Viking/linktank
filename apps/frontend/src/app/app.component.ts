@@ -1,6 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Link } from '@prisma/client';
+// import { Link } from '@prisma/client';
 import { AppService } from './app.service';
+
+interface Link {
+  id: string;
+  url: string;
+  isRead: boolean;
+  tags: string[];
+  notes: string;
+  customData: string[];
+  metadataId: string;
+}
 
 @Component({
   selector: 'linktank-root',
@@ -8,7 +18,7 @@ import { AppService } from './app.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'frontend';
+  title = 'linktank';
   links: Link[];
 
   constructor(private appService: AppService) {
