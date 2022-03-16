@@ -1,5 +1,6 @@
 <linktank-header [title]="title"></linktank-header>
-<router-outlet></router-outlet>
 <div class="link-container" *ngFor="let link of links">
   <linktank-link [link]="link"></linktank-link>
 </div>
+
+<router-outlet></router-outlet>
