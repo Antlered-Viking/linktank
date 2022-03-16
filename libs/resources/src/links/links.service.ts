@@ -53,7 +53,14 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
 
     if (tagFilter !== '') {
       results = await this.prisma.link.findMany({
-        include: { metadata },
+        select: {
+          id: true,
+          url: true,
+          isRead: true,
+          metadataId: true,
+          metadata,
+          tags,
+        },
         skip: pageNumber * pageSize,
         take: pageSize,
         orderBy: {
@@ -67,7 +74,14 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
       });
     } else {
       results = await this.prisma.link.findMany({
-        include: { metadata },
+        select: {
+          id: true,
+          url: true,
+          isRead: true,
+          metadataId: true,
+          metadata,
+          tags,
+        },
         skip: pageNumber * pageSize,
         take: pageSize,
         orderBy: {
