@@ -1,7 +1,17 @@
 import { Component, Input } from '@angular/core';
-import { Link } from '@prisma/client';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
+
+interface Link {
+  id: string;
+  url: string;
+  isRead?: boolean;
+  tags?: string[];
+  notes?: string;
+  customData?: string[];
+  metadataId: string;
+}
+
 @Component({
   selector: 'linktank-link',
   templateUrl: './link.component.html',
@@ -9,7 +19,15 @@ import { lastValueFrom } from 'rxjs';
 })
 export class LinkComponent {
   @Input()
-  link: Link = { id: '-1', url: 'INVALID', isRead: false, metadataId: '-1' };
+  link: Link = {
+    id: '-1',
+    url: 'INVALID',
+    isRead: false,
+    tags: [],
+    notes: '',
+    customData: [],
+    metadataId: '-1',
+  };
   editingURL = false;
 
   constructor(private readonly http: HttpClient) {}
@@ -29,10 +47,14 @@ export class LinkComponent {
   }
 
   async updateLink() {
+    const update = {
+      url: this.link.url,
+      isRead: this.link.isRead,
+    };
     this.link = await lastValueFrom(
       this.http.patch<Link>(
         `http://localhost:3333/api/v1/links/${this.link.id}`,
-        this.link
+        update
       )
     );
   }
