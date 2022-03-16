@@ -6,7 +6,7 @@
     </div>
     <p hidden>{{ link.id }}</p>
     <a *ngIf="!editingURL" [href]="link.url" target="_blank">{{ link.url }}</a>
-    <input *ngIf="editingURL" id="edit-url-input" [value]="link.url" [(ngModel)]="link.url" (change)="updateUrl()" />
+    <input *ngIf="editingURL" class="edit-url-input" [value]="link.url" [(ngModel)]="link.url" (change)="updateUrl()" />
     <div class="flex-spacer"></div>
     <div class="edit-delete">
       <div class="pointer padded" (click)="toggleEditUrl()">
@@ -21,6 +21,12 @@
     <span *ngFor="let tag of link.tags">
       <span class="tag"> <a [href]="'http://localhost:3333/api/v1/links?filter='+tag"
           style="color: var(--secondary-accent-color)">#</a>{{ tag }} </span>
+    </span>
+    <span *ngIf="addingTag" class="tag-input-container">
+      <input type=" text" class="tag-input" name="tagInput" [(ngModel)]="tagInput" (keydown.enter)="addTag(tagInput)">
+    </span>
+    <span class="pointer" (click)="toggleAddTag()">
+      <img class="icon" src="assets/tag-icon.svg">
     </span>
   </div>
 </div>

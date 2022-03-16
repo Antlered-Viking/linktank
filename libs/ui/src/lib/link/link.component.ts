@@ -29,6 +29,8 @@ export class LinkComponent implements OnInit {
     metadataId: '-1',
   };
   editingURL = false;
+  addingTag = false;
+  tagInput = '';
 
   constructor(private readonly http: HttpClient) {}
 
@@ -44,6 +46,11 @@ export class LinkComponent implements OnInit {
   toggleEditUrl() {
     this.editingURL = !this.editingURL;
   }
+
+  toggleAddTag() {
+    this.addingTag = !this.addingTag;
+  }
+
   async deleteLink() {
     await lastValueFrom(
       this.http.delete(`http://localhost:3333/api/v1/links/${this.link.id}`)
@@ -73,5 +80,17 @@ export class LinkComponent implements OnInit {
         update
       )
     );
+  }
+
+  async addTag(newTag: string) {
+    if (this.link.tags.includes(newTag)) {
+      console.log(`${newTag} already in tags`);
+    } else {
+      console.log(`adding ${newTag}`);
+      this.link.tags.push(newTag);
+      this.updateLink;
+      this.toggleAddTag();
+      this.tagInput = '';
+    }
   }
 }
