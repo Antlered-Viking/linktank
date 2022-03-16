@@ -109,50 +109,40 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
   }
 
   async update(id: string, updateLinkDto: UpdateLinkDto) {
-    const cur = await this.prisma.link.findUnique({
-      where: { id },
-      select: {
-        id: true,
-        url: true,
-        isRead: true,
-        metadata: true,
-        tags: true,
-      },
-    });
     let result: {
       id: string;
       url: string;
       isRead: boolean;
       metadataId: string;
     };
-    if (cur) {
-      if (updateLinkDto.tags) {
-        result = await this.prisma.link.update({
-          where: {
-            id,
-          },
+    if (updateLinkDto.tags) {
+      const curMeta = await this.prisma.metadata.findUnique({
+        where: { id: updateLinkDto.metadataId },
+      });
+      if (
+        updateLinkDto.notes !== curMeta.notes ||
+        updateLinkDto.customData !== curMeta.customData
+      ) {
+        await this.prisma.metadata.update({
+          where: { id: curMeta.id },
           data: {
-            url: updateLinkDto.url || cur.url,
-            isRead: updateLinkDto.isRead || cur.isRead,
-            tags: updateLinkDto.tags || cur.tags,
-            metadata: {
-              connectOrCreate: {
-                where: {
-                  id: cur.metadata.id,
-                },
-                create: {
-                  notes: updateLinkDto.notes || cur.metadata.notes,
-                  customData:
-                    updateLinkDto.customData || cur.metadata.customData,
-                },
-              },
-            },
+            notes: updateLinkDto.notes,
+            customData: updateLinkDto.customData,
           },
         });
       }
-      return result;
+      result = await this.prisma.link.update({
+        where: {
+          id,
+        },
+        data: {
+          url: updateLinkDto.url,
+          isRead: updateLinkDto.isRead,
+          tags: updateLinkDto.tags,
+        },
+      });
     }
-    throw new Error(`No link to update with id ${id}`);
+    return result;
   }
 
   async remove(id: string) {

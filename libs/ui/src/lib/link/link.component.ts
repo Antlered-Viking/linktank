@@ -50,10 +50,15 @@ export class LinkComponent implements OnInit {
     );
   }
 
-  async updateLink() {
+  async updateUrl() {
+    console.log(`UPDATING ${this.link.url}`);
     if (this.editingURL) {
       this.editingURL = false;
     }
+    this.updateLink();
+  }
+
+  async updateLink() {
     const update = {
       url: this.link.url,
       isRead: this.link.isRead,

@@ -8,7 +8,13 @@
   </div>
   <p hidden>{{ link.id }}</p>
   <a *ngIf="!editingURL" [href]="link.url" target="_blank">{{ link.url }}</a>
-  <input *ngIf="editingURL" id="edit-url-input" value="{{ link.url }}" />
+  <input
+    *ngIf="editingURL"
+    id="edit-url-input"
+    [value]="link.url"
+    [(ngModel)]="link.url"
+    (change)="updateUrl()"
+  />
   <div class="flex-spacer"></div>
   <div class="edit-delete">
     <div class="pointer padded" (click)="toggleEditUrl()">
