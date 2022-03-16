@@ -1,30 +1,26 @@
-<div *ngIf="link" class="link-unit">
-  <div class="pointer padded">
-    <img
-      class="icon"
-      [src]="link.isRead ? 'assets/check-icon.svg' : 'assets/eye-icon.svg'"
-      (click)="toggleReadStatus()"
-    />
+<div class="link-container">
+  <div *ngIf="link" class="link-unit">
+    <div class="pointer padded">
+      <img class="icon" [src]="link.isRead ? 'assets/check-icon.svg' : 'assets/eye-icon.svg'"
+        (click)="toggleReadStatus()" />
+    </div>
+    <p hidden>{{ link.id }}</p>
+    <a *ngIf="!editingURL" [href]="link.url" target="_blank">{{ link.url }}</a>
+    <input *ngIf="editingURL" id="edit-url-input" [value]="link.url" [(ngModel)]="link.url" (change)="updateUrl()" />
+    <div class="flex-spacer"></div>
+    <div class="edit-delete">
+      <div class="pointer padded" (click)="toggleEditUrl()">
+        <img class="icon" src="assets/edit-icon.svg" />
+      </div>
+      <div class="pointer padded" (click)="deleteLink()">
+        <img class="icon" src="assets/delete-icon.svg" />
+      </div>
+    </div>
   </div>
-  <p hidden>{{ link.id }}</p>
-  <a *ngIf="!editingURL" [href]="link.url" target="_blank">{{ link.url }}</a>
-  <input
-    *ngIf="editingURL"
-    id="edit-url-input"
-    [value]="link.url"
-    [(ngModel)]="link.url"
-    (change)="updateUrl()"
-  />
-  <div class="flex-spacer"></div>
-  <div class="edit-delete">
-    <div class="pointer padded" (click)="toggleEditUrl()">
-      <img class="icon" src="assets/edit-icon.svg" />
-    </div>
-    <div class="pointer padded" (click)="deleteLink()">
-      <img class="icon" src="assets/delete-icon.svg" />
-    </div>
+  <div class="tags">
+    <span *ngFor="let tag of link.tags">
+      <span class="tag"> <a [href]="'http://localhost:3333/api/v1/links?filter='+tag"
+          style="color: var(--secondary-accent-color)">#</a>{{ tag }} </span>
+    </span>
   </div>
 </div>
-<span class="tags" *ngFor="let tag of link.tags">
-  <span class="tag"> #{{ tag }} </span>
-</span>
