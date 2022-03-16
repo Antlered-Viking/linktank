@@ -90,13 +90,14 @@ export class LinkComponent implements OnInit {
 
   async addTag(newTag: string) {
     if (this.link.tags.includes(newTag)) {
-      return;
+      this.toggleAddTag();
+      this.tagInput = '';
+    } else {
+      this.link.tags.push(newTag);
+      this.updateLink();
+      this.toggleAddTag();
+      this.tagInput = '';
     }
-    console.log(`adding ${newTag}`);
-    this.link.tags.push(newTag);
-    this.updateLink();
-    this.toggleAddTag();
-    this.tagInput = '';
   }
 
   async editTag(editedTag: string) {
