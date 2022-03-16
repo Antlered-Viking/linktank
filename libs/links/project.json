@@ -1,19 +1,19 @@
 {
-  "root": "libs/resources",
-  "sourceRoot": "libs/resources/src",
+  "root": "libs/links",
+  "sourceRoot": "libs/links/src",
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/resources/**/*.ts"]
+        "lintFilePatterns": ["libs/links/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/resources"],
+      "outputs": ["coverage/libs/links"],
       "options": {
-        "jestConfig": "libs/resources/jest.config.js",
+        "jestConfig": "libs/links/jest.config.js",
         "passWithNoTests": true
       }
     }

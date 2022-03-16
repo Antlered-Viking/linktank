@@ -5,7 +5,7 @@
     "frontend": "apps/frontend",
     "frontend-e2e": "apps/frontend-e2e",
     "health": "libs/health",
-    "resources": "libs/resources",
+    "links": "libs/links",
     "ui": "libs/ui"
   }
 }

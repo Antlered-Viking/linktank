@@ -4,7 +4,7 @@ import {
   HttpHealthIndicator,
   HealthCheck,
 } from '@nestjs/terminus';
-import { LinksHealthIndicator } from '@linktank/resources';
+import { LinksHealthIndicator } from '@linktank/links';
 
 @Controller('status')
 export class CheckController {

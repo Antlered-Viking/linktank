@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'resources',
+  displayName: 'links',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +11,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/libs/resources',
+  coverageDirectory: '../../coverage/libs/links',
 };

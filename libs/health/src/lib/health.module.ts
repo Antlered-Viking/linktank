@@ -1,4 +1,4 @@
-import { LinksHealthIndicator, LinksModule } from '@linktank/resources';
+import { LinksHealthIndicator, LinksModule } from '@linktank/links';
 import { Module } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
 import { CheckController } from './check.controller';
