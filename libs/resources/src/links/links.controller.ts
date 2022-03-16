@@ -17,11 +17,6 @@ import { UpdateLinkDto } from './dto/update-link.dto';
 export class LinksController {
   constructor(private readonly linksService: LinksService) {}
 
-  @Get('seed')
-  async seed() {
-    await this.linksService.seedDatabase();
-  }
-
   @Version('1')
   @Post()
   create(@Body() createLinkDto: CreateLinkDto) {
