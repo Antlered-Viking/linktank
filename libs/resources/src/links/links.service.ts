@@ -111,7 +111,13 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
   async update(id: string, updateLinkDto: UpdateLinkDto) {
     const cur = await this.prisma.link.findUnique({
       where: { id },
-      include: { metadata: true },
+      select: {
+        id: true,
+        url: true,
+        isRead: true,
+        metadata: true,
+        tags: true,
+      },
     });
     let result: {
       id: string;
@@ -132,7 +138,7 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
             metadata: {
               connectOrCreate: {
                 where: {
-                  id: cur.metadataId,
+                  id: cur.metadata.id,
                 },
                 create: {
                   notes: updateLinkDto.notes || cur.metadata.notes,
