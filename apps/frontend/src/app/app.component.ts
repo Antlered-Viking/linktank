@@ -27,4 +27,7 @@ export class AppComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.links = await this.appService.getLinks();
   }
+  async updateLinks(filter: string): Promise<void> {
+    this.links = await this.appService.getFilteredLinks(filter);
+  }
 }

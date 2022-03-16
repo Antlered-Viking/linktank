@@ -28,4 +28,12 @@ export class AppService {
     );
     return res.data;
   }
+  public async getFilteredLinks(filter: string): Promise<Link[]> {
+    const res = await lastValueFrom(
+      this.http.get<{ data: Link[] }>(
+        `${environment.apiEndpoint}/links?expand=metadata,tags&filter=${filter}`
+      )
+    );
+    return res.data;
+  }
 }
