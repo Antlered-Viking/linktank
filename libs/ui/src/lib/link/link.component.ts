@@ -6,7 +6,7 @@ interface Link {
   id: string;
   url: string;
   isRead: boolean;
-  tags: { id: string; label: string }[];
+  tags: string[];
   notes: string;
   customData: string[];
   metadataId: string;
@@ -38,7 +38,7 @@ export class LinkComponent implements OnInit {
 
   async toggleReadStatus() {
     this.link.isRead = !this.link.isRead;
-    await this.updateLink();
+    this.updateLink();
   }
 
   toggleEditUrl() {
@@ -51,11 +51,8 @@ export class LinkComponent implements OnInit {
   }
 
   async updateLink() {
-    const tags = [];
-    if (this.link.tags) {
-      for (let i = 0; i < this.link.tags.length; i++) {
-        tags.push(this.link.tags[i].label);
-      }
+    if (this.editingURL) {
+      this.editingURL = false;
     }
     const update = {
       url: this.link.url,

@@ -6,7 +6,7 @@ interface Link {
   id: string;
   url: string;
   isRead: boolean;
-  tags: { id: string; label: string }[];
+  tags: string[];
   notes: string;
   customData: string[];
   metadataId: string;
