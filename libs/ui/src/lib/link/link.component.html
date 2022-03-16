@@ -19,8 +19,8 @@
   </div>
   <div class="tags">
     <span *ngFor="let tag of link.tags">
-      <span class="tag"> <a [href]="'http://localhost:3333/api/v1/links?filter='+tag"
-          style="color: var(--secondary-accent-color)">#</a>
+      <span class="tag"> <a routerLink="'http://localhost:3333/api/v1/links?filter='+tag"
+          style="color: var(--secondary-accent-color); cursor: pointer;">#</a>
         <span class="tag-text" (click)="toggleEditTag()">{{ tag }}</span>
       </span>
     </span>
