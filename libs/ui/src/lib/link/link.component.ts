@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface Link {
   id: string;
@@ -37,10 +37,12 @@ export class LinkComponent implements OnInit {
 
   constructor(
     private readonly http: HttpClient,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   async ngOnInit(): Promise<void> {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     if (this.link.id === '-1') {
       this.link = await lastValueFrom(
         this.http.get<Link>(

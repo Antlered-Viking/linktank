@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CreateLinkDto, Link } from '@linktank/links';
 import { LinksService } from './links.service';
 
@@ -12,7 +13,10 @@ export class LinksComponent implements OnInit {
   links: Link[];
   newLink: CreateLinkDto;
 
-  constructor(private linksService: LinksService) {
+  constructor(
+    private linksService: LinksService,
+    private route: ActivatedRoute
+  ) {
     this.links = [];
     this.newLink = {
       url: '',
@@ -20,7 +24,11 @@ export class LinksComponent implements OnInit {
     };
   }
   async ngOnInit(): Promise<void> {
-    this.links = await this.linksService.getLinks();
+    if (this.route.snapshot.queryParams['filter']) {
+      this.updateLinks(this.route.snapshot.queryParams['filter']);
+    } else {
+      this.links = await this.linksService.getLinks();
+    }
   }
   async updateLinks(filter: string): Promise<void> {
     this.links = await this.linksService.getFilteredLinks(filter);
