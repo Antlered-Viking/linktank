@@ -31,11 +31,6 @@ export class LinkComponent implements OnInit {
     metadataId: '-1',
   };
   editingURL = false;
-  addingTag = false;
-  editingTag = false;
-  tagInput = '';
-  editTagInput = '';
-  tagBeingEdited = '';
 
   @Output()
   linkDeleted: EventEmitter<void> = new EventEmitter<void>();
@@ -64,15 +59,6 @@ export class LinkComponent implements OnInit {
 
   toggleEditUrl() {
     this.editingURL = !this.editingURL;
-  }
-
-  toggleAddTag() {
-    this.addingTag = !this.addingTag;
-  }
-
-  toggleEditTag(tag: string) {
-    this.tagBeingEdited = tag;
-    this.editingTag = !this.editingTag;
   }
 
   async deleteLink() {
@@ -107,42 +93,9 @@ export class LinkComponent implements OnInit {
     );
   }
 
-  async addTag(newTag: string) {
-    if (this.link.tags.includes(newTag)) {
-      this.toggleAddTag();
-      this.tagInput = '';
-    } else {
-      if (newTag.includes(',')) {
-        const tags = newTag.split(',');
-        for (let i = 0; i < tags.length; i++) {
-          this.link.tags.push(tags[i].trim());
-        }
-      } else {
-        this.link.tags.push(newTag.trim());
-      }
-      this.updateLink();
-      this.toggleAddTag();
-      this.tagInput = '';
-    }
-  }
-
-  async editTag(oldTag: string) {
-    this.editTagInput = oldTag;
-    if (this.link.tags.includes(oldTag)) {
-      const index = this.link.tags.indexOf(oldTag);
-      this.link.tags[index] = this.editTagInput;
-      this.updateLink();
-      this.editTagInput = '';
-      this.editingTag = false;
-    }
-  }
-
-  async deleteTag(removedTag: string) {
-    if (this.link.tags.includes(removedTag)) {
-      this.link.tags = this.link.tags.filter(
-        (tag: string) => tag !== removedTag
-      );
-      this.updateLink();
-    }
+  async updateTags(newTags: string[]) {
+    console.log(newTags);
+    this.link.tags = newTags;
+    this.updateLink();
   }
 }
