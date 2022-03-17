@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 
+//TODO switch to entity variant without angular compiler crashing
 interface Link {
   id: string;
   url: string;
