@@ -20,12 +20,11 @@
   <div class="tags">
     <span class="tag" *ngFor="let tag of link.tags; index as i">
       <span>
-        <a routerLink="../links" [queryParams]="{ filter: tag }" [hidden]="editingTag && tagBeingEdited === tag"
-          style="color: var(--secondary-accent-color); cursor: pointer">#</a>
+        <span [hidden]="editingTag && tagBeingEdited === tag" style="color: var(--secondary-accent-color);">#</span>
         <span [hidden]="!editingTag || tagBeingEdited !== tag">
           <img src="assets/undo-icon.svg" class="icon" (click)="toggleEditTag(tag)">
-          <input type=" text" class="tag-input" name="tagInput" [(ngModel)]="editTagInput"
-            (keydown.enter)="editTag(link.tags[i])" />
+          <input type=" text" class="tag-input" name="tagInput" [(ngModel)]="editTagInput" [placeholder]="tag"
+            [value]="tag" (keydown.enter)="editTag(link.tags[i])" />
           <img src="assets/delete-icon.svg" class="icon" (click)="deleteTag(tag)">
         </span>
         <span class="tag-text" [hidden]="editingTag && tagBeingEdited === tag" (click)="toggleEditTag(tag)">{{ tag
