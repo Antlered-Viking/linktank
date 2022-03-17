@@ -109,7 +109,14 @@ export class LinkComponent implements OnInit {
       this.toggleAddTag();
       this.tagInput = '';
     } else {
-      this.link.tags.push(newTag);
+      if (newTag.includes(',')) {
+        const tags = newTag.split(',');
+        for (let i = 0; i < tags.length; i++) {
+          this.link.tags.push(tags[i]);
+        }
+      } else {
+        this.link.tags.push(newTag);
+      }
       this.updateLink();
       this.toggleAddTag();
       this.tagInput = '';
