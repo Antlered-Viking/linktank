@@ -1,10 +1,10 @@
 export class Link {
   id: string;
   url: string;
-  isRead?: boolean;
-  tags?: string[];
-  notes?: string;
-  customData?: string[];
+  isRead: boolean;
+  tags: string[];
+  notes: string;
+  customData: string[];
   metadataId: string;
 
   constructor() {
