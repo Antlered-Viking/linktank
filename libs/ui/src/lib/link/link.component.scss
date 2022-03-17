@@ -57,17 +57,21 @@ a:hover,
 }
 .tags {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: row;
   flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
   padding: 0 0 0.375rem;
   font-style: italic;
 }
-.tags span {
-  margin: 0 0.125rem;
+.tag {
+  background-color: rgba(0, 0, 0, 0.075);
+  border-radius: 0.25rem;
+  margin: 0.15rem 0.25rem;
+  padding: 0.15rem 0.25rem;
 }
 .tag-text {
-  text-decoration: underline;
+  // text-decoration: underline;
   cursor: pointer;
 }
 .tag-input,
