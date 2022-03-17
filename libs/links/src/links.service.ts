@@ -109,40 +109,36 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
   }
 
   async update(id: string, updateLinkDto: UpdateLinkDto) {
-    let result: {
-      id: string;
-      url: string;
-      isRead: boolean;
-      metadataId: string;
-    };
     if (updateLinkDto.tags) {
       const curMeta = await this.prisma.metadata.findUnique({
         where: { id: updateLinkDto.metadataId },
       });
-      if (
-        updateLinkDto.notes !== curMeta.notes ||
-        updateLinkDto.customData !== curMeta.customData
-      ) {
-        await this.prisma.metadata.update({
-          where: { id: curMeta.id },
+      if (curMeta) {
+        if (
+          updateLinkDto.notes !== curMeta.notes ||
+          updateLinkDto.customData !== curMeta.customData
+        ) {
+          await this.prisma.metadata.update({
+            where: { id: curMeta.id },
+            data: {
+              notes: updateLinkDto.notes,
+              customData: updateLinkDto.customData,
+            },
+          });
+        }
+        return await this.prisma.link.update({
+          where: {
+            id,
+          },
           data: {
-            notes: updateLinkDto.notes,
-            customData: updateLinkDto.customData,
+            url: updateLinkDto.url,
+            isRead: updateLinkDto.isRead,
+            tags: updateLinkDto.tags,
           },
         });
       }
-      result = await this.prisma.link.update({
-        where: {
-          id,
-        },
-        data: {
-          url: updateLinkDto.url,
-          isRead: updateLinkDto.isRead,
-          tags: updateLinkDto.tags,
-        },
-      });
     }
-    return result;
+    throw new Error(`No link found with id ${id}`);
   }
 
   async remove(id: string) {
