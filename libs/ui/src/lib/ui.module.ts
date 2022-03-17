@@ -8,6 +8,7 @@ import { LinksComponent } from './links/links.component';
 import { RouterModule } from '@angular/router';
 import { StatusComponent } from './status/status.component';
 import { StatusErrorComponent } from './status-error/status-error.component';
+import { StatusReportComponent } from './status-report/status-report.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
@@ -17,6 +18,7 @@ import { StatusErrorComponent } from './status-error/status-error.component';
     LinksComponent,
     StatusComponent,
     StatusErrorComponent,
+    StatusReportComponent,
   ],
   exports: [
     LinkComponent,

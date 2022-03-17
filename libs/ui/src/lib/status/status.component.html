@@ -1,8 +1,17 @@
-<div *ngIf="statusReport">
-  <b>STATUS:</b> {{ statusReport.status }}
-  <div><b>API:</b> {{ statusReport.info.API.status }}</div>
-  <div><b>Frontend:</b> {{ statusReport.info.Frontend.status }}</div>
-  <div><b>Database:</b> {{ statusReport.info['Link Service'].status }}</div>
+<div *ngIf="report; else loading">
+  <b>STATUS:</b> {{ report.status }}
+  <linktank-status-report
+    name="API"
+    [report]="report.info?.API"
+  ></linktank-status-report>
+  <linktank-status-report
+    name="Frontend"
+    [report]="report.info?.Frontend"
+  ></linktank-status-report>
+  <linktank-status-report
+    name="Links"
+    [report]="report.info['Link Service']"
+  ></linktank-status-report>
 
   <div *ngIf="errors.length > 0">
     <b>ERRORS</b>
@@ -11,3 +20,5 @@
     </div>
   </div>
 </div>
+
+<ng-template #loading> Checking status. Please wait... </ng-template>
