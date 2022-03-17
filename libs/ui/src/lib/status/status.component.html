@@ -1,5 +1,9 @@
 <div *ngIf="report; else loading">
-  <b>STATUS:</b> {{ report.status }}
+  <b>STATUS:</b>
+  <span
+    [style.color]="report && report.status === 'error' ? '#ff0000' : '#00ff00'"
+    >&nbsp;{{ report.status }}</span
+  >
   <linktank-status-report
     name="API"
     [report]="report.info?.API"
