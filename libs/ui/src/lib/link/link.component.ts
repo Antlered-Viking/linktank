@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -36,6 +36,9 @@ export class LinkComponent implements OnInit {
   tagInput = '';
   editTagInput = '';
   tagBeingEdited = '';
+
+  @Output()
+  linkDeleted: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private readonly http: HttpClient,
@@ -76,7 +79,7 @@ export class LinkComponent implements OnInit {
     await lastValueFrom(
       this.http.delete(`http://localhost:3333/api/v1/links/${this.link.id}`)
     );
-    //TODO send event up to parent
+    this.linkDeleted.emit();
   }
 
   async updateUrl() {

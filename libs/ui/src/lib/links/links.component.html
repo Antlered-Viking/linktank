@@ -1,5 +1,5 @@
 <div class="link-container" *ngFor="let link of links">
-  <linktank-link [link]="link"></linktank-link>
+  <linktank-link [link]="link" (linkDeleted)="updateLinks('')"></linktank-link>
 </div>
 <div class="create-form">
   <input
