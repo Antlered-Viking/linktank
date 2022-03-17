@@ -1,7 +1,7 @@
-export * from './links.module';
-export * from './links.service';
-export * from './links.health';
+export * from './lib/links.module';
+export * from './lib/links.service';
+export * from './lib/links.health';
 
-export * from './dto/create-link.dto';
-export * from './dto/update-link.dto';
-export * from './entities/link.entity';
+export * from './lib/dto/create-link.dto';
+export * from './lib/dto/update-link.dto';
+export * from './lib/entities/link.entity';
