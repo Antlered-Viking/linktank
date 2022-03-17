@@ -71,6 +71,7 @@ export class LinkComponent implements OnInit {
     await lastValueFrom(
       this.http.delete(`http://localhost:3333/api/v1/links/${this.link.id}`)
     );
+    //TODO send event up to parent
   }
 
   async updateUrl() {
