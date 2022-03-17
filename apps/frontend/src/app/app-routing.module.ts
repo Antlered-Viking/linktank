@@ -11,14 +11,17 @@ const routes: Routes = [
     component: LinksComponent,
   },
   {
-    path: 'links/:id',
+    path: 'link/:id',
     component: LinkComponent,
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), UiModule],
+  imports: [
+    RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' }),
+    UiModule,
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
