@@ -138,7 +138,6 @@ export class LinkComponent implements OnInit {
 
   async deleteTag(removedTag: string) {
     if (this.link.tags.includes(removedTag)) {
-      const index = this.link.tags.indexOf(removedTag);
       this.link.tags = this.link.tags.filter(
         (tag: string) => tag !== removedTag
       );
