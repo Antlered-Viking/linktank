@@ -127,6 +127,7 @@ export class LinkComponent implements OnInit {
   }
 
   async editTag(oldTag: string) {
+    this.editTagInput = oldTag;
     if (this.link.tags.includes(oldTag)) {
       const index = this.link.tags.indexOf(oldTag);
       this.link.tags[index] = this.editTagInput;
