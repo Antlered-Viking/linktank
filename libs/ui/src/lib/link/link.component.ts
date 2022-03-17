@@ -35,6 +35,7 @@ export class LinkComponent implements OnInit {
   editingTag = false;
   tagInput = '';
   editTagInput = '';
+  tagBeingEdited = '';
 
   constructor(
     private readonly http: HttpClient,
@@ -66,7 +67,8 @@ export class LinkComponent implements OnInit {
     this.addingTag = !this.addingTag;
   }
 
-  toggleEditTag() {
+  toggleEditTag(tag: string) {
+    this.tagBeingEdited = tag;
     this.editingTag = !this.editingTag;
   }
 
@@ -120,6 +122,7 @@ export class LinkComponent implements OnInit {
       this.link.tags[index] = this.editTagInput;
       this.updateLink();
       this.editTagInput = '';
+      this.editingTag = false;
     }
   }
 }
