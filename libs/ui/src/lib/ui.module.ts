@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LinkComponent } from './link/link.component';
 import { HeaderComponent } from './header/header.component';
+import { LinksComponent } from './links/links.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, HttpClientModule],
-  declarations: [LinkComponent, HeaderComponent],
-  exports: [LinkComponent, HeaderComponent],
+  imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
+  declarations: [LinkComponent, HeaderComponent, LinksComponent],
+  exports: [LinkComponent, HeaderComponent, LinksComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class UiModule {}

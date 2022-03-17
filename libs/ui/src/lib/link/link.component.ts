@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 interface Link {
   id: string;
@@ -34,10 +35,19 @@ export class LinkComponent implements OnInit {
   tagInput = '';
   editTagInput = '';
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    console.log(this.link);
+    this.route.queryParams.subscribe(async (params) => {
+      this.link = await lastValueFrom(
+        this.http.get<Link>(
+          `http://localhost:3333/api/v1/links/${params['id']}?expand=metadata,tags`
+        )
+      );
+    });
   }
 
   async toggleReadStatus() {

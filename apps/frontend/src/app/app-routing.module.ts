@@ -2,21 +2,21 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { UiModule } from '@linktank/ui';
-import { LinkComponent } from '@linktank/ui';
+import { LinkComponent, LinksComponent } from '@linktank/ui';
 
 const routes: Routes = [
   { path: 'home', component: AppComponent },
   {
-    path: 'link',
-    component: LinkComponent,
+    path: 'links',
+    component: LinksComponent,
     children: [
       {
-        path: 'link/:id',
+        path: 'links/:id',
         component: LinkComponent,
       },
     ],
   },
-  { path: 'home', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/links', pathMatch: 'full' },
 ];
 
 @NgModule({
