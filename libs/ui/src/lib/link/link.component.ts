@@ -114,7 +114,12 @@ export class LinkComponent implements OnInit {
     }
   }
 
-  async editTag(editedTag: string) {
-    // TODO make this only activate the one tag
+  async editTag(oldTag: string) {
+    if (this.link.tags.includes(oldTag)) {
+      const index = this.link.tags.indexOf(oldTag);
+      this.link.tags[index] = this.editTagInput;
+      this.updateLink();
+      this.editTagInput = '';
+    }
   }
 }

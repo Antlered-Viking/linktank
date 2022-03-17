@@ -28,8 +28,22 @@
   </div>
   <div class="tags">
     <span *ngFor="let tag of link.tags">
-      <span class="tag" routerLink="../links" [queryParams]="{ filter: tag }">
-        <a style="color: var(--secondary-accent-color); cursor: pointer">#</a>
+      <span class="tag">
+        <a
+          routerLink="../links"
+          [queryParams]="{ filter: tag }"
+          [hidden]="editingTag"
+          style="color: var(--secondary-accent-color); cursor: pointer"
+          >#</a
+        >
+        <input
+          type=" text"
+          class="tag-input"
+          name="tagInput"
+          [hidden]="!editingTag"
+          [(ngModel)]="editTagInput"
+          (keydown.enter)="editTag(tag)"
+        />
         <span class="tag-text" (click)="toggleEditTag()">{{ tag }}</span>
       </span>
     </span>
