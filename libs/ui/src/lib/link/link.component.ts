@@ -135,4 +135,8 @@ export class LinkComponent implements OnInit {
       this.editingTag = false;
     }
   }
+
+  async deleteTag(removedTag: string) {
+    console.log(`YA GONE ${removedTag}, YA DONE HERE.`);
+  }
 }

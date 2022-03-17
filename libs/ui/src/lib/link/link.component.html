@@ -22,16 +22,21 @@
       <span>
         <a routerLink="../links" [queryParams]="{ filter: tag }" [hidden]="editingTag && tagBeingEdited === tag"
           style="color: var(--secondary-accent-color); cursor: pointer">#</a>
-        <input type=" text" class="tag-input" name="tagInput" [hidden]="!editingTag || tagBeingEdited !== tag"
-          [(ngModel)]="editTagInput" (keydown.enter)="editTag(link.tags[i])" />
-        <span class="tag-text" (click)="toggleEditTag(tag)">{{ tag }}</span>
+        <span [hidden]="!editingTag || tagBeingEdited !== tag">
+          <img src="assets/undo-icon.svg" class="icon" (click)="toggleEditTag(tag)">
+          <input type=" text" class="tag-input" name="tagInput" [(ngModel)]="editTagInput"
+            (keydown.enter)="editTag(link.tags[i])" />
+          <img src="assets/delete-icon.svg" class="icon" (click)="deleteTag(tag)">
+        </span>
+        <span class="tag-text" [hidden]="editingTag && tagBeingEdited === tag" (click)="toggleEditTag(tag)">{{ tag
+          }}</span>
       </span>
     </span>
     <span *ngIf="addingTag" class="tag-input-container">
       <input type="text" class="tag-input" name="tagInput" [(ngModel)]="tagInput" (keydown.enter)="addTag(tagInput)" />
     </span>
     <span class="pointer" (click)="toggleAddTag()">
-      <img class="icon" src="assets/tag-icon.svg" />
+      <img class="icon padded" src="assets/tag-icon.svg" />
     </span>
   </div>
 </div>
