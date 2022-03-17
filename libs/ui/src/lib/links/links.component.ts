@@ -1,15 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CreateLinkDto, Link } from '@linktank/links';
 import { LinksService } from './links.service';
-
-interface Link {
-  id: string;
-  url: string;
-  isRead: boolean;
-  tags: string[];
-  notes: string;
-  customData: string[];
-  metadataId: string;
-}
 
 @Component({
   selector: 'linktank-links',
@@ -19,10 +10,14 @@ interface Link {
 export class LinksComponent implements OnInit {
   @Input()
   links: Link[];
-  newUrl = '';
+  newLink: CreateLinkDto;
 
   constructor(private linksService: LinksService) {
     this.links = [];
+    this.newLink = {
+      url: '',
+      tags: [],
+    };
   }
   async ngOnInit(): Promise<void> {
     this.links = await this.linksService.getLinks();
@@ -31,7 +26,9 @@ export class LinksComponent implements OnInit {
     this.links = await this.linksService.getFilteredLinks(filter);
   }
   async createNewLink(): Promise<void> {
-    await this.linksService.createLink({ url: this.newUrl, tags: [] });
-    this.newUrl = '';
+    await this.linksService.createLink(this.newLink);
+    this.newLink.url = '';
+    this.newLink.tags = [];
+    this.links = await this.linksService.getLinks();
   }
 }

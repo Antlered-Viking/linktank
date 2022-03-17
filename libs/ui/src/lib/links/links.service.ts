@@ -1,16 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
-
-interface Link {
-  id: string;
-  url: string;
-  isRead: boolean;
-  tags: string[];
-  notes: string;
-  customData: string[];
-  metadataId: string;
-}
+import { CreateLinkDto, Link } from '@linktank/links';
 
 @Injectable({
   providedIn: 'root',
@@ -34,13 +25,15 @@ export class LinksService {
     );
     return res.data;
   }
-  public async createLink({ url = '', tags = [] }): Promise<Link> {
+  public async createLink(createObject: CreateLinkDto): Promise<Link> {
     const res = await lastValueFrom(
-      this.http.post<Link>('http://localhost:3333/api/v1/links', {
-        url,
-        tags,
-      })
+      this.http.post<Link>('http://localhost:3333/api/v1/links', createObject)
     );
     return res;
+  }
+  public async deleteLink(id: string): Promise<Link> {
+    return await lastValueFrom(
+      this.http.delete<Link>(`http://localhost:3333/api/v1/links/${id}`)
+    );
   }
 }
