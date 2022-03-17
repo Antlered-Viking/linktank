@@ -1,0 +1,13 @@
+<div *ngIf="statusReport">
+  <b>STATUS:</b> {{ statusReport.status }}
+  <div><b>API:</b> {{ statusReport.info.API.status }}</div>
+  <div><b>Frontend:</b> {{ statusReport.info.Frontend.status }}</div>
+  <div><b>Database:</b> {{ statusReport.info['Link Service'].status }}</div>
+
+  <div *ngIf="errors.length > 0">
+    <b>ERRORS</b>
+    <div *ngFor="let error of errors">
+      <linktank-status-error [error]="error"></linktank-status-error>
+    </div>
+  </div>
+</div>
