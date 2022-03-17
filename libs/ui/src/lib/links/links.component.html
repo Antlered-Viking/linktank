@@ -6,7 +6,7 @@
     id="newLink"
     type="text"
     placeholder="http://some-link.com"
-    [value]="newLink.url"
+    [(ngModel)]="newLink.url"
   />
   <button (click)="createNewLink()">+</button>
 </div>
