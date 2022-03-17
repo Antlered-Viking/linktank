@@ -19,6 +19,8 @@ interface Link {
 export class LinksComponent implements OnInit {
   @Input()
   links: Link[];
+  newUrl = '';
+
   constructor(private linksService: LinksService) {
     this.links = [];
   }
@@ -27,5 +29,9 @@ export class LinksComponent implements OnInit {
   }
   async updateLinks(filter: string): Promise<void> {
     this.links = await this.linksService.getFilteredLinks(filter);
+  }
+  async createNewLink(): Promise<void> {
+    await this.linksService.createLink({ url: this.newUrl, tags: [] });
+    this.newUrl = '';
   }
 }

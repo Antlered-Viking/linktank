@@ -40,14 +40,14 @@ export class LinkComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
-    this.route.queryParams.subscribe(async (params) => {
+  async ngOnInit(): Promise<void> {
+    if (this.link.id === '-1') {
       this.link = await lastValueFrom(
         this.http.get<Link>(
-          `http://localhost:3333/api/v1/links/${params['id']}?expand=metadata,tags`
+          `http://localhost:3333/api/v1/links/${this.route.snapshot.params['id']}?expand=metadata,tags`
         )
       );
-    });
+    }
   }
 
   async toggleReadStatus() {
