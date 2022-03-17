@@ -94,7 +94,6 @@ export class LinkComponent implements OnInit {
   }
 
   async updateTags(newTags: string[]) {
-    console.log(newTags);
     this.link.tags = newTags;
     this.updateLink();
   }
