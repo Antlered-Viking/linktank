@@ -112,10 +112,10 @@ export class LinkComponent implements OnInit {
       if (newTag.includes(',')) {
         const tags = newTag.split(',');
         for (let i = 0; i < tags.length; i++) {
-          this.link.tags.push(tags[i]);
+          this.link.tags.push(tags[i].trim());
         }
       } else {
-        this.link.tags.push(newTag);
+        this.link.tags.push(newTag.trim());
       }
       this.updateLink();
       this.toggleAddTag();
