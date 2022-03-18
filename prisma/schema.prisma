@@ -33,4 +33,5 @@ model User {
   name      String
   password  String
   avatarURL String
+  role      String
 }
