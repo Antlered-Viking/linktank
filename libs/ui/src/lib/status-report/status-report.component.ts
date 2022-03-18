@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 
 export interface HealthyReport {
   status: 'up' | 'down';
+  message: string;
   exists?: boolean;
   items?: number;
 }
