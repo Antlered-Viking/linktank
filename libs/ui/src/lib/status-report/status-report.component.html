@@ -8,7 +8,7 @@
         {{ report?.status }}</span
       >
     </div>
-    <div *ngIf="report?.links">Links in database: {{ report?.links }}</div>
-    <div *ngIf="report?.users">Users in database: {{ report?.users }}</div>
+    <div *ngIf="report?.items">Database exists: {{ report?.exists }}</div>
+    <div *ngIf="report?.items">Items in database: {{ report?.items }}</div>
   </div>
 </div>

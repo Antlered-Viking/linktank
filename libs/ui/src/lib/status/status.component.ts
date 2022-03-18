@@ -15,6 +15,7 @@ interface Report {
   details: {
     API: HealthyReport;
     'Link Service': HealthyReport;
+    'User Service': HealthyReport;
     Frontend: HealthyReport;
   };
 }
@@ -48,7 +49,7 @@ export class StatusComponent implements OnInit {
           };
           this.errors.push(report);
         }
-        // console.log(this.statusReport);
+        console.log(this.report);
       }
     );
   }

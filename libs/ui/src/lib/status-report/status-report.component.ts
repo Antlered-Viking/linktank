@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 
 export interface HealthyReport {
   status: 'up' | 'down';
-  links?: number;
-  users?: number;
+  exists?: boolean;
+  items?: number;
 }
 
 @Component({
