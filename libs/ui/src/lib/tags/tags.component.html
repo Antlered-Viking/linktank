@@ -16,6 +16,7 @@
           type=" text"
           class="tag-input"
           name="tagInput"
+          maxlength="64"
           [(ngModel)]="editTagInput"
           [placeholder]="tag"
           [value]="tag"
@@ -40,6 +41,7 @@
       type="text"
       class="tag-input"
       name="tagInput"
+      maxlength="64"
       [(ngModel)]="tagInput"
       (keydown.enter)="addTag(tagInput)"
     />
