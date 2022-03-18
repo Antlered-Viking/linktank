@@ -8,6 +8,7 @@ interface Report {
   info: {
     API: HealthyReport;
     'Link Service': HealthyReport;
+    'User Service': HealthyReport;
     Frontend: HealthyReport;
   };
   error: ErrorReport[];
