@@ -18,7 +18,8 @@
       "@linktank/auth": ["libs/auth/src/index.ts"],
       "@linktank/health": ["libs/health/src/index.ts"],
       "@linktank/links": ["libs/links/src/index.ts"],
-      "@linktank/ui": ["libs/ui/src/index.ts"]
+      "@linktank/ui": ["libs/ui/src/index.ts"],
+      "@linktank/users": ["libs/users/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
