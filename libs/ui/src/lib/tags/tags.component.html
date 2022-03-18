@@ -1,9 +1,7 @@
 <div class="tags">
   <span class="tag" *ngFor="let tag of tags; index as i">
     <span>
-      <span
-        [hidden]="editingTag && tagBeingEdited === tag"
-        style="color: var(--secondary-accent-color)"
+      <span class="secondary" [hidden]="editingTag && tagBeingEdited === tag"
         >#</span
       >
       <span [hidden]="!editingTag || tagBeingEdited !== tag">
