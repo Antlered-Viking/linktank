@@ -20,7 +20,16 @@ export class LinksHealthIndicator extends HealthIndicator {
     const links = await this.prisma.link.findMany();
     this.prisma.$disconnect();
     const isHealthy = links.length > 0;
-    const result = this.getStatus(key, isHealthy, { links: links.length });
+    const result = this.getStatus(key, isHealthy, {
+      statusCode: links.length > 0 ? 200 : 404,
+      statusText: links.length > 0 ? 'OK' : 'Not found',
+      message:
+        links.length > 0
+          ? 'Link database contacted'
+          : 'No links found in database',
+      exists: links.length > 0,
+      items: links.length,
+    });
 
     if (isHealthy) {
       return result;
