@@ -12,6 +12,7 @@ import { StatusReportComponent } from './status-report/status-report.component';
 import { TagsComponent } from './tags/tags.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
@@ -25,6 +26,7 @@ import { RegisterComponent } from './register/register.component';
     TagsComponent,
     LoginComponent,
     RegisterComponent,
+    WelcomeComponent,
   ],
   exports: [
     LinkComponent,
@@ -34,6 +36,7 @@ import { RegisterComponent } from './register/register.component';
     StatusErrorComponent,
     LoginComponent,
     RegisterComponent,
+    WelcomeComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
