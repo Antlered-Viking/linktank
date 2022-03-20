@@ -9,7 +9,7 @@ import {
 import { Injectable } from '@angular/core';
 
 import { Observable, tap } from 'rxjs';
-import { UserService } from '@linktank/ngx-auth';
+import { UserService } from '../lib/user.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
