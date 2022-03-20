@@ -13,6 +13,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
+    // adding to this return value will add to the user object that lives in the request
+    // CAUTION IS ADVISED WHEN ADDING TO THIS!
     return {
       userId: payload.sub,
       username: payload.username,
