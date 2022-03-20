@@ -8,6 +8,7 @@ import { PrismaClient } from '@prisma/client';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { Roles } from './roles.enum';
 
 @Injectable()
 export class UsersService implements OnModuleInit, OnModuleDestroy {
@@ -35,7 +36,7 @@ export class UsersService implements OnModuleInit, OnModuleDestroy {
         name: createUserDto.name,
         password: createUserDto.password,
         avatarURL: '',
-        role: 'user',
+        roles: [Roles.User],
       },
     });
   }
@@ -59,7 +60,7 @@ export class UsersService implements OnModuleInit, OnModuleDestroy {
         name: updateUserDto.name,
         password: updateUserDto.password,
         avatarURL: updateUserDto.avatarURL,
-        role: updateUserDto.role,
+        roles: updateUserDto.roles,
       },
     });
   }

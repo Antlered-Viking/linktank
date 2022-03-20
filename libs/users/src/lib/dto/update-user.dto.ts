@@ -3,11 +3,16 @@ import { CreateUserDto } from './create-user.dto';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
   avatarURL?: string;
-  role?: string;
+  roles?: string[];
 
-  constructor(name: string, password: string, avatarURL: string, role: string) {
+  constructor(
+    name: string,
+    password: string,
+    avatarURL: string,
+    roles: string[]
+  ) {
     super(name, password);
     this.avatarURL = avatarURL;
-    this.role = role;
+    this.roles = roles;
   }
 }

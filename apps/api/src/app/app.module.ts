@@ -6,7 +6,7 @@ import { AppService } from './app.service';
 
 import { LinksModule } from '@linktank/links';
 import { HealthModule } from '@linktank/health';
-import { AuthModule } from '@linktank/auth';
+import { AuthModule, RolesGuard } from '@linktank/auth';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from '@linktank/auth';
 
@@ -18,6 +18,10 @@ import { JwtAuthGuard } from '@linktank/auth';
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
   ],
 })

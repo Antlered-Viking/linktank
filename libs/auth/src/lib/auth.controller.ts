@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { Anonymous } from './anonymous.decorator';
 import { AuthService } from './auth.service';
-import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local.guard';
 
 @Controller('auth')
