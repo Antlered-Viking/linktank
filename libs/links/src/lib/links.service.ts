@@ -1,29 +1,15 @@
-import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
+import { DatabaseService } from '@linktank/database';
+import { Injectable } from '@nestjs/common';
 import { CreateLinkDto } from './dto/create-link.dto';
 import { UpdateLinkDto } from './dto/update-link.dto';
-
-import { Link, Metadata, PrismaClient } from '@prisma/client';
+import { Link, Metadata } from '@prisma/client';
 
 @Injectable()
-export class LinksService implements OnModuleInit, OnModuleDestroy {
-  private prisma: PrismaClient;
-
-  constructor() {
-    this.prisma = new PrismaClient();
-  }
-  async onModuleInit() {
-    this.prisma.$connect();
-    const check = await this.prisma.link.findMany();
-    if (check.length === 0) {
-      this.seedDatabase();
-    }
-  }
-  async onModuleDestroy() {
-    this.prisma.$disconnect();
-  }
+export class LinksService {
+  constructor(private db: DatabaseService) {}
 
   async create(createLinkDto: CreateLinkDto) {
-    return await this.prisma.link.create({
+    return await this.db.link.create({
       data: {
         url: createLinkDto.url,
         tags: { set: createLinkDto.tags },
@@ -45,11 +31,11 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
     pageSize = 20,
     sort = 'asc'
   ) {
-    const totalPages = Math.floor((await this.prisma.link.count()) / pageSize);
+    const totalPages = Math.floor((await this.db.link.count()) / pageSize);
     let results: (Link & { metadata: Metadata })[];
 
     if (tagFilter !== '') {
-      results = await this.prisma.link.findMany({
+      results = await this.db.link.findMany({
         select: {
           id: true,
           url: true,
@@ -70,7 +56,7 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
         },
       });
     } else {
-      results = await this.prisma.link.findMany({
+      results = await this.db.link.findMany({
         select: {
           id: true,
           url: true,
@@ -96,7 +82,7 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
   }
 
   async findOne(id: string, metadata: boolean, tags: boolean) {
-    return await this.prisma.link.findUnique({
+    return await this.db.link.findUnique({
       where: { id },
       select: {
         id: true,
@@ -110,7 +96,7 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
 
   async update(id: string, updateLinkDto: UpdateLinkDto) {
     if (updateLinkDto.tags) {
-      const curMeta = await this.prisma.metadata.findUnique({
+      const curMeta = await this.db.metadata.findUnique({
         where: { id: updateLinkDto.metadataId },
       });
       if (curMeta) {
@@ -118,7 +104,7 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
           updateLinkDto.notes !== curMeta.notes ||
           updateLinkDto.customData !== curMeta.customData
         ) {
-          await this.prisma.metadata.update({
+          await this.db.metadata.update({
             where: { id: curMeta.id },
             data: {
               notes: updateLinkDto.notes,
@@ -126,7 +112,7 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
             },
           });
         }
-        return await this.prisma.link.update({
+        return await this.db.link.update({
           where: {
             id,
           },
@@ -142,11 +128,11 @@ export class LinksService implements OnModuleInit, OnModuleDestroy {
   }
 
   async remove(id: string) {
-    return await this.prisma.link.delete({ where: { id } });
+    return await this.db.link.delete({ where: { id } });
   }
 
   async seedDatabase() {
-    await this.prisma.link.create({
+    await this.db.link.create({
       data: {
         url: 'https://github.com/Antlered-Viking/linktank',
         isRead: false,
