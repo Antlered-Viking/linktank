@@ -8,6 +8,7 @@
     "frontend-e2e": "apps/frontend-e2e",
     "health": "libs/health",
     "links": "libs/links",
+    "ngx-auth": "libs/ngx-auth",
     "ui": "libs/ui",
     "users": "libs/users"
   }

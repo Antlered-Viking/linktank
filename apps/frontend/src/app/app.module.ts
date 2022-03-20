@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
 import { AppRoutingModule } from './app-routing.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { UiModule } from '@linktank/ui';
+import { AuthInterceptor } from '@linktank/ngx-auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +23,14 @@ import { UiModule } from '@linktank/ui';
     }),
     UiModule,
   ],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
