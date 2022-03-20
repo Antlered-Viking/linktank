@@ -9,7 +9,7 @@
     "health": "libs/health",
     "links": "libs/links",
     "ngx-auth": "libs/ngx-auth",
-    "ui": "libs/ui",
+    "ngx-ui": "libs/ngx-ui",
     "users": "libs/users"
   }
 }

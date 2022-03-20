@@ -8,9 +8,8 @@ describe('StatusErrorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StatusErrorComponent ]
-    })
-    .compileComponents();
+      declarations: [StatusErrorComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

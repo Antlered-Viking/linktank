@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { UiModule } from '@linktank/ui';
+import { NgxUiModule } from '@linktank/ngx-ui';
 import {
   LinkComponent,
   LinksComponent,
   LoginComponent,
   StatusComponent,
   RegisterComponent,
-} from '@linktank/ui';
+} from '@linktank/ngx-ui';
 
 const routes: Routes = [
   { path: 'home', component: AppComponent },
@@ -29,7 +29,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' }),
-    UiModule,
+    NgxUiModule,
   ],
   exports: [RouterModule],
 })

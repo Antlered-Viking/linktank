@@ -6,7 +6,7 @@ import { AppService } from './app.service';
 import { AppRoutingModule } from './app-routing.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { UiModule } from '@linktank/ui';
+import { NgxUiModule } from '@linktank/ngx-ui';
 import { AuthInterceptor } from '@linktank/ngx-auth';
 
 @NgModule({
@@ -21,7 +21,7 @@ import { AuthInterceptor } from '@linktank/ngx-auth';
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
-    UiModule,
+    NgxUiModule,
   ],
   providers: [
     AppService,
