@@ -15,6 +15,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     pass: string,
     user?: SanitizedUser
   ): Promise<SanitizedUser> {
+    // anything that is to be added to the JWT payload (see jwt.strategy.ts)
+    // must be supplied to this validateUser call
     const u = await this.authService.validateUser(name, pass);
     if (u === undefined) {
       throw new UnauthorizedException();
