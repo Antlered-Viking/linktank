@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { NgxUiModule } from '@linktank/ngx-ui';
+import { NgxUiModule, WelcomeComponent } from '@linktank/ngx-ui';
 import {
   LinkComponent,
   LinksComponent,
@@ -11,7 +11,7 @@ import {
 } from '@linktank/ngx-ui';
 
 const routes: Routes = [
-  { path: 'home', component: AppComponent },
+  { path: 'home', component: WelcomeComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   {
