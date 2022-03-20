@@ -6,9 +6,10 @@ import { AppService } from './app.service';
 
 import { LinksModule } from '@linktank/links';
 import { HealthModule } from '@linktank/health';
+import { AuthModule } from '@linktank/auth';
 
 @Module({
-  imports: [HttpModule, LinksModule, HealthModule],
+  imports: [HttpModule, LinksModule, HealthModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
