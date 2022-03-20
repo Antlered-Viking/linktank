@@ -1,18 +1,35 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  OnModuleDestroy,
+  OnModuleInit,
+} from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 @Injectable()
-export class UsersService {
+export class UsersService implements OnModuleInit, OnModuleDestroy {
   prisma: PrismaClient;
 
   constructor() {
     this.prisma = new PrismaClient();
   }
+  onModuleInit() {
+    this.prisma.$connect();
+  }
+  onModuleDestroy() {
+    this.prisma.$disconnect();
+  }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
+    const exists = await this.prisma.user.findFirst({
+      where: { name: createUserDto.name },
+    });
+    if (exists) {
+      throw new BadRequestException('Please choose another username');
+    }
     return await this.prisma.user.create({
       data: {
         name: createUserDto.name,
@@ -28,7 +45,10 @@ export class UsersService {
   }
 
   async findOne(name: string): Promise<User> {
-    return await this.prisma.user.findFirst({ where: { name } });
+    return await this.prisma.user.findFirst({
+      where: { name },
+      rejectOnNotFound: true,
+    });
   }
 
   async update(name: string, updateUserDto: UpdateUserDto): Promise<User> {
