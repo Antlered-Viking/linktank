@@ -7,10 +7,18 @@ import { AppService } from './app.service';
 import { LinksModule } from '@linktank/links';
 import { HealthModule } from '@linktank/health';
 import { AuthModule } from '@linktank/auth';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from '@linktank/auth';
 
 @Module({
   imports: [HttpModule, LinksModule, HealthModule, AuthModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class AppModule {}
