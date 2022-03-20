@@ -1,6 +1,7 @@
 import { CreateUserDto, SanitizedUser, UsersService } from '@linktank/users';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -12,9 +13,12 @@ export class AuthService {
 
   async validateUser(name: string, pass: string): Promise<SanitizedUser> {
     const user = await this.users.findOne(name);
-    if (user && user.name === name && user.password === pass) {
-      const { password, ...result } = user;
-      return result;
+    if (user) {
+      const passMatch = await bcrypt.compare(pass, user.password);
+      if (user.name === name && passMatch) {
+        const { password, ...result } = user;
+        return result;
+      }
     }
     return undefined;
     // return user;

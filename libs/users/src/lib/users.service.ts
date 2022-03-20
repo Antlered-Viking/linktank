@@ -9,6 +9,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { Roles } from './roles.enum';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService implements OnModuleInit, OnModuleDestroy {
@@ -31,10 +32,12 @@ export class UsersService implements OnModuleInit, OnModuleDestroy {
     if (exists) {
       throw new BadRequestException('Please choose another username');
     }
+    const salt = await bcrypt.genSalt();
+    const password = await bcrypt.hash(createUserDto.password, salt);
     return await this.prisma.user.create({
       data: {
         name: createUserDto.name,
-        password: createUserDto.password,
+        password,
         avatarURL: '',
         roles: [Roles.User],
       },
