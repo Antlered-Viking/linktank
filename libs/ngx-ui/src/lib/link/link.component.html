@@ -1,11 +1,17 @@
 <div class="link-container">
   <div *ngIf="link" class="link-unit">
     <div class="pointer padded">
-      <img
+      <span *ngIf="link.isRead; else unread">
+        <linktank-check-icon (click)="toggleReadStatus()"></linktank-check-icon>
+      </span>
+      <ng-template #unread>
+        <linktank-eye-icon (click)="toggleReadStatus()"></linktank-eye-icon>
+      </ng-template>
+      <!-- <img
         class="icon"
         [src]="link.isRead ? 'assets/check-icon.svg' : 'assets/eye-icon.svg'"
         (click)="toggleReadStatus()"
-      />
+      /> -->
     </div>
     <p hidden>{{ link.id }}</p>
     <a
