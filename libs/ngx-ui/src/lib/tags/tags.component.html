@@ -21,11 +21,12 @@
           [value]="tag"
           (keydown.enter)="editTag(tags[i])"
         />
-        <img
+        <!-- <img
           src="assets/delete-icon.svg"
           class="icon"
           (click)="deleteTag(tag)"
-        />
+        /> -->
+        <linktank-delete-icon (click)="deleteTag(tag)"></linktank-delete-icon>
       </span>
       <span
         class="tag-text"
