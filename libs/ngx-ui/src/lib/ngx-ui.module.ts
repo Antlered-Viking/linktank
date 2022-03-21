@@ -15,6 +15,7 @@ import { RegisterComponent } from './register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LogoComponent } from './logo/logo.component';
 import { TagIconComponent } from './tag-icon/tag-icon.component';
+import { DeleteIconComponent } from './delete-icon/delete-icon.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
@@ -31,6 +32,7 @@ import { TagIconComponent } from './tag-icon/tag-icon.component';
     WelcomeComponent,
     LogoComponent,
     TagIconComponent,
+    DeleteIconComponent,
   ],
   exports: [
     LinkComponent,
@@ -43,6 +45,7 @@ import { TagIconComponent } from './tag-icon/tag-icon.component';
     WelcomeComponent,
     LogoComponent,
     TagIconComponent,
+    DeleteIconComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
