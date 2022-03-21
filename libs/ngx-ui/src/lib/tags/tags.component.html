@@ -5,11 +5,12 @@
         >#</span
       >
       <span [hidden]="!editingTag || tagBeingEdited !== tag">
-        <img
+        <!-- <img
           src="assets/undo-icon.svg"
           class="icon"
           (click)="toggleEditTag(tag)"
-        />
+        /> -->
+        <linktank-undo-icon (click)="toggleEditTag(tag)"></linktank-undo-icon>
         <input
           type=" text"
           class="tag-input"
