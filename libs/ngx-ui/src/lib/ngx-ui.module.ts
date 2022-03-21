@@ -18,6 +18,7 @@ import { TagIconComponent } from './tag-icon/tag-icon.component';
 import { DeleteIconComponent } from './delete-icon/delete-icon.component';
 import { UndoIconComponent } from './undo-icon/undo-icon.component';
 import { CheckIconComponent } from './check-icon/check-icon.component';
+import { EyeIconComponent } from './eye-icon/eye-icon.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
@@ -37,6 +38,7 @@ import { CheckIconComponent } from './check-icon/check-icon.component';
     DeleteIconComponent,
     UndoIconComponent,
     CheckIconComponent,
+    EyeIconComponent,
   ],
   exports: [
     LinkComponent,
@@ -52,6 +54,7 @@ import { CheckIconComponent } from './check-icon/check-icon.component';
     DeleteIconComponent,
     UndoIconComponent,
     CheckIconComponent,
+    EyeIconComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
