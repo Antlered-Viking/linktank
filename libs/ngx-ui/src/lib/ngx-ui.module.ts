@@ -13,6 +13,13 @@ import { TagsComponent } from './tags/tags.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { LogoComponent } from './logo/logo.component';
+import { TagIconComponent } from './tag-icon/tag-icon.component';
+import { DeleteIconComponent } from './delete-icon/delete-icon.component';
+import { UndoIconComponent } from './undo-icon/undo-icon.component';
+import { CheckIconComponent } from './check-icon/check-icon.component';
+import { EyeIconComponent } from './eye-icon/eye-icon.component';
+import { EditIconComponent } from './edit-icon/edit-icon.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
@@ -27,6 +34,13 @@ import { WelcomeComponent } from './welcome/welcome.component';
     LoginComponent,
     RegisterComponent,
     WelcomeComponent,
+    LogoComponent,
+    TagIconComponent,
+    DeleteIconComponent,
+    UndoIconComponent,
+    CheckIconComponent,
+    EyeIconComponent,
+    EditIconComponent,
   ],
   exports: [
     LinkComponent,
@@ -37,6 +51,13 @@ import { WelcomeComponent } from './welcome/welcome.component';
     LoginComponent,
     RegisterComponent,
     WelcomeComponent,
+    LogoComponent,
+    TagIconComponent,
+    DeleteIconComponent,
+    UndoIconComponent,
+    CheckIconComponent,
+    EyeIconComponent,
+    EditIconComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
