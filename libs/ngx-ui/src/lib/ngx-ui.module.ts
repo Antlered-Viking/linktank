@@ -13,6 +13,7 @@ import { TagsComponent } from './tags/tags.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { LogoComponent } from './logo/logo.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
@@ -27,6 +28,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     LoginComponent,
     RegisterComponent,
     WelcomeComponent,
+    LogoComponent,
   ],
   exports: [
     LinkComponent,
@@ -37,6 +39,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     LoginComponent,
     RegisterComponent,
     WelcomeComponent,
+    LogoComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
