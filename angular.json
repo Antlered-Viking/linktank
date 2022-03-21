@@ -2,10 +2,14 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
+    "auth": "libs/auth",
+    "database": "libs/database",
     "frontend": "apps/frontend",
     "frontend-e2e": "apps/frontend-e2e",
     "health": "libs/health",
-    "resources": "libs/resources",
-    "ui": "libs/ui"
+    "links": "libs/links",
+    "ngx-auth": "libs/ngx-auth",
+    "ngx-ui": "libs/ngx-ui",
+    "users": "libs/users"
   }
 }

@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-
+import { HttpModule } from '@nestjs/axios';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -8,15 +8,18 @@ describe('AppController', () => {
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
+      imports: [HttpModule],
       controllers: [AppController],
       providers: [AppService],
     }).compile();
   });
 
   describe('getData', () => {
-    it('should return "Welcome to api!"', () => {
+    it('should return "Welcome to the Linktank API!"', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.getData()).toEqual({ message: 'Welcome to api!' });
+      expect(appController.welcome1()).toEqual({
+        message: 'Welcome to the Linktank API!',
+      });
     });
   });
 });

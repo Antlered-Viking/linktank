@@ -1,0 +1,53 @@
+<div class="link-container">
+  <div *ngIf="link" class="link-unit">
+    <div class="pointer padded">
+      <span *ngIf="link.isRead; else unread">
+        <linktank-check-icon
+          class="icon"
+          (click)="toggleReadStatus()"
+        ></linktank-check-icon>
+      </span>
+      <ng-template #unread>
+        <linktank-eye-icon
+          class="icon"
+          (click)="toggleReadStatus()"
+        ></linktank-eye-icon>
+      </ng-template>
+      <!-- <img
+        class="icon"
+        [src]="link.isRead ? 'assets/check-icon.svg' : 'assets/eye-icon.svg'"
+        (click)="toggleReadStatus()"
+      /> -->
+    </div>
+    <p hidden>{{ link.id }}</p>
+    <a
+      *ngIf="!editingURL"
+      [href]="link.url"
+      target="_blank"
+      (click)="toggleReadStatus()"
+      >{{ link.url }}</a
+    >
+    <input
+      *ngIf="editingURL"
+      class="edit-url-input"
+      [value]="link.url"
+      [(ngModel)]="link.url"
+      (change)="updateUrl()"
+    />
+    <div class="flex-spacer"></div>
+    <div class="edit-delete">
+      <div class="pointer padded" (click)="toggleEditUrl()">
+        <!-- <img class="icon" src="assets/edit-icon.svg" /> -->
+        <linktank-edit-icon class="icon"></linktank-edit-icon>
+      </div>
+      <div class="pointer padded" (click)="deleteLink()">
+        <!-- <img class="icon" src="assets/delete-icon.svg" /> -->
+        <linktank-delete-icon></linktank-delete-icon>
+      </div>
+    </div>
+  </div>
+  <linktank-tags
+    [tags]="link.tags"
+    (tagsChanged)="updateTags($event)"
+  ></linktank-tags>
+</div>

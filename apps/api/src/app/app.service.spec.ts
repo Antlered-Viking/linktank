@@ -1,5 +1,5 @@
 import { Test } from '@nestjs/testing';
-
+import { HttpModule } from '@nestjs/axios';
 import { AppService } from './app.service';
 
 describe('AppService', () => {
@@ -7,6 +7,7 @@ describe('AppService', () => {
 
   beforeAll(async () => {
     const app = await Test.createTestingModule({
+      imports: [HttpModule],
       providers: [AppService],
     }).compile();
 
@@ -14,8 +15,10 @@ describe('AppService', () => {
   });
 
   describe('getData', () => {
-    it('should return "Welcome to api!"', () => {
-      expect(service.getData()).toEqual({ message: 'Welcome to api!' });
+    it('should return "Welcome to the Linktank API!"', () => {
+      expect(service.getData1()).toEqual({
+        message: 'Welcome to the Linktank API!',
+      });
     });
   });
 });

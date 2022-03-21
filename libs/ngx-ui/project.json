@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/ngx-ui",
+  "sourceRoot": "libs/ngx-ui/src",
+  "prefix": "linktank",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ngx-ui"],
+      "options": {
+        "jestConfig": "libs/ngx-ui/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ngx-ui/src/**/*.ts",
+          "libs/ngx-ui/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

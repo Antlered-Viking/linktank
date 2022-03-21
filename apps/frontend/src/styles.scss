@@ -12,19 +12,21 @@ body {
   color: var(--text-color);
   background-color: var(--background-color);
 }
-
-input {
-  color: var(--text-color);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: inherit;
-  border: 0.125rem solid;
-  border-radius: 0.25rem;
-  border-color: var(--primary-accent-color);
-  width: 80%;
+.flex-spacer {
+  flex: 1 1 auto;
 }
-input:focus {
-  outline: none;
-  border: 0.125rem solid;
-  border-radius: 0.25rem;
-  border-color: var(--secondary-accent-color);
+.pointer {
+  cursor: pointer;
+  color: var(--primary-accent-color);
+}
+.padded {
+  padding: 0.375rem 0.375rem 0;
+}
+.icon {
+  filter: invert(92%) sepia(0%) saturate(253%) hue-rotate(250deg)
+    brightness(88%) contrast(82%);
+}
+.icon:hover {
+  filter: invert(43%) sepia(99%) saturate(2632%) hue-rotate(2deg)
+    brightness(105%) contrast(104%);
 }

@@ -1,6 +1,10 @@
 {
     "cSpell.words": [
+        "devkit",
+        "jscutlery",
         "linktank",
-        "nestjs"
+        "nestjs",
+        "ngcc",
+        "nrwl"
     ]
 }

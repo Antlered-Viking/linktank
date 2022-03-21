@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/ngx-auth",
+  "sourceRoot": "libs/ngx-auth/src",
+  "prefix": "linktank",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ngx-auth"],
+      "options": {
+        "jestConfig": "libs/ngx-auth/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ngx-auth/src/**/*.ts",
+          "libs/ngx-auth/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

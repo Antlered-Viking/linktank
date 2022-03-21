@@ -1,0 +1,12 @@
+<div class="link-container" *ngFor="let link of links">
+  <linktank-link [link]="link" (linkDeleted)="updateLinks('')"></linktank-link>
+</div>
+<div class="create-form">
+  <input
+    id="newLink"
+    type="text"
+    placeholder="http://some-link.com"
+    [(ngModel)]="newLink.url"
+  />
+  <button (click)="createNewLink()">+</button>
+</div>

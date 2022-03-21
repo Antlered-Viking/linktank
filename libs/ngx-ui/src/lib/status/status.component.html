@@ -1,0 +1,32 @@
+<div *ngIf="report; else loading">
+  <b>STATUS:</b>
+  <span
+    [style.color]="report && report.status === 'error' ? '#ff0000' : '#00ff00'"
+    >&nbsp;{{ report.status }}</span
+  >
+  <linktank-status-report
+    name="API"
+    [report]="report.info?.API"
+  ></linktank-status-report>
+  <linktank-status-report
+    name="Frontend"
+    [report]="report.info?.Frontend"
+  ></linktank-status-report>
+  <linktank-status-report
+    name="Links"
+    [report]="report.info['Link Service']"
+  ></linktank-status-report>
+  <linktank-status-report
+    name="Users"
+    [report]="report.info['User Service']"
+  ></linktank-status-report>
+
+  <div *ngIf="errors.length > 0">
+    <b>ERRORS</b>
+    <div *ngFor="let error of errors">
+      <linktank-status-error [error]="error"></linktank-status-error>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading> Checking status. Please wait... </ng-template>

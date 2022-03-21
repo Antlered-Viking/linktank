@@ -1,18 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
-// import { Link } from '@prisma/client'; //TODO replace this with an internal type
 import { environment } from '../environments/environment';
-
-interface Link {
-  id: string;
-  url: string;
-  isRead: boolean;
-  tags: string[];
-  notes: string;
-  customData: string[];
-  metadataId: string;
-}
+import { Link } from '@linktank/links';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +14,14 @@ export class AppService {
     const res = await lastValueFrom(
       this.http.get<{ data: Link[] }>(
         `${environment.apiEndpoint}/links?expand=metadata,tags`
+      )
+    );
+    return res.data;
+  }
+  public async getFilteredLinks(filter: string): Promise<Link[]> {
+    const res = await lastValueFrom(
+      this.http.get<{ data: Link[] }>(
+        `${environment.apiEndpoint}/links?expand=metadata,tags&filter=${filter}`
       )
     );
     return res.data;
