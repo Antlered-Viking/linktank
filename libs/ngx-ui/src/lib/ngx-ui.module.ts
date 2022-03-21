@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LogoComponent } from './logo/logo.component';
+import { TagIconComponent } from './tag-icon/tag-icon.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
@@ -29,6 +30,7 @@ import { LogoComponent } from './logo/logo.component';
     RegisterComponent,
     WelcomeComponent,
     LogoComponent,
+    TagIconComponent,
   ],
   exports: [
     LinkComponent,
@@ -40,6 +42,7 @@ import { LogoComponent } from './logo/logo.component';
     RegisterComponent,
     WelcomeComponent,
     LogoComponent,
+    TagIconComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
