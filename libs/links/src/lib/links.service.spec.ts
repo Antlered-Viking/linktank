@@ -1,3 +1,4 @@
+import { DatabaseModule } from '@linktank/database';
 import { Test, TestingModule } from '@nestjs/testing';
 import { LinksService } from './links.service';
 
@@ -6,6 +7,7 @@ describe('LinksService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [DatabaseModule],
       providers: [LinksService],
     }).compile();
 

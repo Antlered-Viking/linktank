@@ -1,4 +1,8 @@
+import { CommonModule } from '@angular/common';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { StatusErrorComponent } from './status-error.component';
 
@@ -8,7 +12,9 @@ describe('StatusErrorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
       declarations: [StatusErrorComponent],
+      providers: [HttpClient],
     }).compileComponents();
   });
 
