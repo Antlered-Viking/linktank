@@ -17,7 +17,12 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     console.log(req.url);
-    if (req.url.includes('/api/v1/links')) {
+    if (
+      req.url.includes('/api/v1/links') ||
+      (req.url.includes('/api/v1/auth') &&
+        !req.url.includes('register') &&
+        !req.url.includes('login'))
+    ) {
       req = req.clone({
         setHeaders: {
           'Content-Type': 'application/json; charset=utf-8',
