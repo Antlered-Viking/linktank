@@ -1,0 +1,6 @@
+<div class="container">
+  <button class="tabBtn" (click)="visible = !visible">Auth</button>
+  <div *ngIf="visible" [@slideInOut] class="authPanel">
+    <linktank-login></linktank-login>
+  </div>
+</div>

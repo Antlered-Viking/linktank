@@ -21,6 +21,7 @@ import { CheckIconComponent } from './check-icon/check-icon.component';
 import { EyeIconComponent } from './eye-icon/eye-icon.component';
 import { EditIconComponent } from './edit-icon/edit-icon.component';
 import { PinPadComponent } from './pin-pad/pin-pad.component';
+import { AuthPanelComponent } from './auth-panel/auth-panel.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
@@ -43,6 +44,7 @@ import { PinPadComponent } from './pin-pad/pin-pad.component';
     EyeIconComponent,
     EditIconComponent,
     PinPadComponent,
+    AuthPanelComponent,
   ],
   exports: [
     LinkComponent,
@@ -61,6 +63,7 @@ import { PinPadComponent } from './pin-pad/pin-pad.component';
     EyeIconComponent,
     EditIconComponent,
     PinPadComponent,
+    AuthPanelComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
