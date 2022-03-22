@@ -3,3 +3,7 @@
 <label for="password">Password: </label>
 <input type="password" id="password" [(ngModel)]="password" />
 <button (click)="submit()">Login</button>
+
+<div *ngIf="usePin">
+  <linktank-pin-pad></linktank-pin-pad>
+</div>

@@ -38,8 +38,11 @@ export class PinPadComponent {
       this.errorMsg = 'PIN must be 4-6 digits';
       return;
     }
-    this.user.unlockToken(this.entry);
-    this.entry = '';
-    this.errorMsg = '';
+    if (this.user.unlockToken(this.entry)) {
+      this.entry = '';
+      this.errorMsg = '';
+    } else {
+      this.errorMsg = 'INVALID PIN';
+    }
   }
 }

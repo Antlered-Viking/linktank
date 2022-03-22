@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UserService } from '@linktank/ngx-auth';
 
 @Component({
@@ -9,9 +9,12 @@ import { UserService } from '@linktank/ngx-auth';
 export class LoginComponent {
   name: string;
   password: string;
+  @Input()
+  usePin: boolean;
   constructor(private user: UserService) {
     this.name = '';
     this.password = '';
+    this.usePin = true;
   }
 
   async submit() {

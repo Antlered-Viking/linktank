@@ -11,29 +11,25 @@ export class LinksService {
 
   public async getLinks(): Promise<Link[]> {
     const res = await lastValueFrom(
-      this.http.get<{ data: Link[] }>(
-        `http://localhost:3333/api/v1/links?expand=metadata,tags`
-      )
+      this.http.get<{ data: Link[] }>(`/api/v1/links?expand=metadata,tags`)
     );
     return res.data;
   }
   public async getFilteredLinks(filter: string): Promise<Link[]> {
     const res = await lastValueFrom(
       this.http.get<{ data: Link[] }>(
-        `http://localhost:3333/api/v1/links?expand=metadata,tags&filter=${filter}`
+        `/api/v1/links?expand=metadata,tags&filter=${filter}`
       )
     );
     return res.data;
   }
   public async createLink(createObject: CreateLinkDto): Promise<Link> {
     const res = await lastValueFrom(
-      this.http.post<Link>('http://localhost:3333/api/v1/links', createObject)
+      this.http.post<Link>('/api/v1/links', createObject)
     );
     return res;
   }
   public async deleteLink(id: string): Promise<Link> {
-    return await lastValueFrom(
-      this.http.delete<Link>(`http://localhost:3333/api/v1/links/${id}`)
-    );
+    return await lastValueFrom(this.http.delete<Link>(`/api/v1/links/${id}`));
   }
 }
