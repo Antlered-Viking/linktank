@@ -1,9 +1,15 @@
-<label for="name">Username: </label>
-<input type="text" id="name" [(ngModel)]="name" />
-<label for="password">Password: </label>
-<input type="password" id="password" [(ngModel)]="password" />
-<button (click)="submit()">Login</button>
+<div *ngIf="!isLoggedIn">
+  <div>
+    <label for="name">Username: </label>
+    <input type="text" id="name" [(ngModel)]="name" />
+  </div>
+  <div>
+    <label for="password">Password: </label>
+    <input type="password" id="password" [(ngModel)]="password" />
+  </div>
+  <button (click)="submit()">Login</button>
 
-<div *ngIf="usePin">
-  <linktank-pin-pad></linktank-pin-pad>
+  <div *ngIf="usePin">
+    <linktank-pin-pad></linktank-pin-pad>
+  </div>
 </div>

@@ -1,6 +1,13 @@
 <div class="container">
-  <button class="tabBtn" (click)="visible = !visible">Auth</button>
-  <div *ngIf="visible" [@slideInOut] class="authPanel">
-    <linktank-login></linktank-login>
+  <button class="tabBtn" (click)="toggleVisibility()">Auth</button>
+  <div *ngIf="user; else loggedOut">
+    <div *ngIf="visible" [@slideInOut]>
+      {{ user | json }}
+    </div>
   </div>
+  <ng-template #loggedOut>
+    <div *ngIf="visible" [@slideInOut] class="authPanel">
+      <linktank-login (authChangedEvent)="updateUser($event)"></linktank-login>
+    </div>
+  </ng-template>
 </div>
