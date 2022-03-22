@@ -20,6 +20,7 @@ import { UndoIconComponent } from './undo-icon/undo-icon.component';
 import { CheckIconComponent } from './check-icon/check-icon.component';
 import { EyeIconComponent } from './eye-icon/eye-icon.component';
 import { EditIconComponent } from './edit-icon/edit-icon.component';
+import { PinPadComponent } from './pin-pad/pin-pad.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
@@ -41,6 +42,7 @@ import { EditIconComponent } from './edit-icon/edit-icon.component';
     CheckIconComponent,
     EyeIconComponent,
     EditIconComponent,
+    PinPadComponent,
   ],
   exports: [
     LinkComponent,
@@ -58,6 +60,7 @@ import { EditIconComponent } from './edit-icon/edit-icon.component';
     CheckIconComponent,
     EyeIconComponent,
     EditIconComponent,
+    PinPadComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

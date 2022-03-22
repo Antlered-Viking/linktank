@@ -1,0 +1,28 @@
+<div class="pinPad">
+  {{ entry }}
+  <div class="row">
+    <button (click)="click('1')" aria-label="1">1</button>
+    <button (click)="click('2')" aria-label="2">2</button>
+    <button (click)="click('3')" aria-label="3">3</button>
+  </div>
+  <div class="row">
+    <button (click)="click('4')" aria-label="4">4</button>
+    <button (click)="click('5')" aria-label="5">5</button>
+    <button (click)="click('6')" aria-label="6">6</button>
+  </div>
+  <div class="row">
+    <button (click)="click('7')" aria-label="7">7</button>
+    <button (click)="click('8')" aria-label="8">8</button>
+    <button (click)="click('9')" aria-label="9">9</button>
+  </div>
+  <div class="row">
+    <button (click)="click('del')" aria-label="delete">&#8592;</button>
+    <button (click)="click('0')" aria-label="0">0</button>
+    <button (click)="click('clear')" aria-label="clear">
+      <linktank-delete-icon></linktank-delete-icon>
+    </button>
+  </div>
+  <div *ngIf="errorMsg">
+    <p style="color: red">{{ errorMsg }}</p>
+  </div>
+</div>
