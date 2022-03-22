@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { UserService } from '@linktank/ngx-auth';
 @Component({
   selector: 'linktank-pin-pad',
   templateUrl: './pin-pad.component.html',
@@ -9,7 +9,7 @@ export class PinPadComponent {
   entry: string;
   errorMsg: string;
 
-  constructor() {
+  constructor(private user: UserService) {
     this.entry = '';
     this.errorMsg = '';
   }
@@ -34,6 +34,11 @@ export class PinPadComponent {
   }
 
   submit() {
+    if (this.entry.length < 4) {
+      this.errorMsg = 'PIN must be 4-6 digits';
+      return;
+    }
+    this.user.unlockToken(this.entry);
     this.entry = '';
     this.errorMsg = '';
   }
