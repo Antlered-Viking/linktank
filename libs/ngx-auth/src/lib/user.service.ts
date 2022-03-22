@@ -67,7 +67,6 @@ export class UserService {
         const bytes = CryptoJS.AES.decrypt(this.accessToken, pin);
         if (bytes.toString()) {
           decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-          console.log(`Decrypted access token: ${decrypted}`);
           this.accessToken = decrypted;
           return true;
         }
