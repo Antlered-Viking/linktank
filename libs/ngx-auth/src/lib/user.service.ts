@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { SanitizedUser } from '@linktank/users';
 import { lastValueFrom } from 'rxjs';
 import * as CryptoJS from 'crypto-js';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class UserService {
   accessToken?: string;
   pin: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.user = undefined;
     this.accessToken = undefined;
     this.pin = '667226';
@@ -47,7 +48,7 @@ export class UserService {
       console.log(e);
     }
     localStorage.setItem('token', pass);
-    this.accessToken = '';
+    this.router.navigate(['/links']);
   }
 
   logout() {
