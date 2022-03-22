@@ -16,14 +16,11 @@
     <button (click)="click('9')" aria-label="9">9</button>
   </div>
   <div class="row">
-    <button (click)="click('del')" aria-label="delete">&#8592;</button>
+    <button (click)="click('Backspace')" aria-label="delete">&#8592;</button>
     <button (click)="click('0')" aria-label="0">0</button>
-    <button (click)="click('clear')" aria-label="clear">
-      <linktank-delete-icon></linktank-delete-icon>
-    </button>
+    <button (click)="submit()" aria-label="submit">&#9166;</button>
   </div>
   <div *ngIf="errorMsg">
     <p style="color: red">{{ errorMsg }}</p>
   </div>
 </div>
-<button class="submit" (click)="submit()" aria-label="submit">&#9166;</button>

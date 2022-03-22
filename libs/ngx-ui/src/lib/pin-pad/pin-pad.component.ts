@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { UserService } from '@linktank/ngx-auth';
 @Component({
   selector: 'linktank-pin-pad',
@@ -9,6 +9,11 @@ export class PinPadComponent {
   entry: string;
   errorMsg: string;
 
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    this.click(event.key);
+  }
+
   constructor(private user: UserService) {
     this.entry = '';
     this.errorMsg = '';
@@ -17,18 +22,20 @@ export class PinPadComponent {
   click(btn: string) {
     this.errorMsg = '';
     switch (btn) {
-      case 'del':
+      case 'Enter':
+        this.submit();
+        break;
+      case 'Backspace':
         this.entry = this.entry.slice(0, -1);
         break;
-      case 'clear':
-        this.entry = '';
-        break;
-      default:
+      case Number.parseInt(btn).toString():
         if (this.entry.length < 6) {
           this.entry += btn;
         } else {
           this.errorMsg = 'PIN must be 4-6 digits';
         }
+        break;
+      default:
         break;
     }
   }
