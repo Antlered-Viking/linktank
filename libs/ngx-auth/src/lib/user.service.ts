@@ -48,6 +48,9 @@ export class UserService {
       console.log(e);
     }
     localStorage.setItem('token', pass);
+    this.user = await lastValueFrom(
+      this.http.get<SanitizedUser>('/api/v1/auth/me')
+    );
     this.router.navigate(['/links']);
   }
 
