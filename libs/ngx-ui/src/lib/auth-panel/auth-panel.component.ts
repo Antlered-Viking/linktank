@@ -39,6 +39,12 @@ export class AuthPanelComponent {
     this.user = user;
     this.toggleVisibility();
     if (this.user) {
+      if (!this.user.avatarURL) {
+        this.user.avatarURL =
+          'https://avatars.dicebear.com/api/identicon/' +
+          this.user.name +
+          '.svg';
+      }
       this.router.navigate(['/links']);
     }
   }
