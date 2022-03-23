@@ -1,5 +1,6 @@
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from '@linktank/ngx-auth';
 import { SanitizedUser } from '@linktank/users';
 
@@ -24,7 +25,7 @@ export class AuthPanelComponent {
   isLoggedIn: boolean;
   user?: SanitizedUser;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     this.visible = this.userService.user === undefined;
     this.isLoggedIn = this.userService.user !== undefined;
   }
@@ -37,5 +38,8 @@ export class AuthPanelComponent {
   updateUser(user: SanitizedUser | undefined) {
     this.user = user;
     this.toggleVisibility();
+    if (user) {
+      this.router.navigate(['/links']);
+    }
   }
 }
