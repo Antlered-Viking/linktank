@@ -13,18 +13,18 @@ import { TagsComponent } from './tags/tags.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { LogoComponent } from './logo/logo.component';
-import { TagIconComponent } from './tag-icon/tag-icon.component';
-import { DeleteIconComponent } from './delete-icon/delete-icon.component';
-import { UndoIconComponent } from './undo-icon/undo-icon.component';
-import { CheckIconComponent } from './check-icon/check-icon.component';
-import { EyeIconComponent } from './eye-icon/eye-icon.component';
-import { EditIconComponent } from './edit-icon/edit-icon.component';
 import { PinPadComponent } from './pin-pad/pin-pad.component';
 import { AuthPanelComponent } from './auth-panel/auth-panel.component';
+import { NgxIconsModule } from '@linktank-ngx-icons';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    HttpClientModule,
+    RouterModule,
+    NgxIconsModule,
+  ],
   declarations: [
     LinkComponent,
     HeaderComponent,
@@ -36,13 +36,6 @@ import { AuthPanelComponent } from './auth-panel/auth-panel.component';
     LoginComponent,
     RegisterComponent,
     WelcomeComponent,
-    LogoComponent,
-    TagIconComponent,
-    DeleteIconComponent,
-    UndoIconComponent,
-    CheckIconComponent,
-    EyeIconComponent,
-    EditIconComponent,
     PinPadComponent,
     AuthPanelComponent,
   ],
@@ -55,13 +48,6 @@ import { AuthPanelComponent } from './auth-panel/auth-panel.component';
     LoginComponent,
     RegisterComponent,
     WelcomeComponent,
-    LogoComponent,
-    TagIconComponent,
-    DeleteIconComponent,
-    UndoIconComponent,
-    CheckIconComponent,
-    EyeIconComponent,
-    EditIconComponent,
     PinPadComponent,
     AuthPanelComponent,
   ],

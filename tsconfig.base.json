@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@linktank-ngx-icons": ["libs/ngx-icons/src/index.ts"],
       "@linktank/auth": ["libs/auth/src/index.ts"],
       "@linktank/database": ["libs/database/src/index.ts"],
       "@linktank/health": ["libs/health/src/index.ts"],

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'linktank-edit-icon',
+  selector: 'icon-edit',
   templateUrl: './edit-icon.component.svg',
   styleUrls: ['./edit-icon.component.scss'],
 })

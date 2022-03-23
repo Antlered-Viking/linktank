@@ -2,16 +2,10 @@
   <div *ngIf="link" class="link-unit">
     <div class="pointer padded">
       <span *ngIf="link.isRead; else unread">
-        <linktank-check-icon
-          class="icon"
-          (click)="toggleReadStatus()"
-        ></linktank-check-icon>
+        <icon-check class="icon" (click)="toggleReadStatus()"></icon-check>
       </span>
       <ng-template #unread>
-        <linktank-eye-icon
-          class="icon"
-          (click)="toggleReadStatus()"
-        ></linktank-eye-icon>
+        <icon-eye class="icon" (click)="toggleReadStatus()"></icon-eye>
       </ng-template>
       <!-- <img
         class="icon"
@@ -38,11 +32,11 @@
     <div class="edit-delete">
       <div class="pointer padded" (click)="toggleEditUrl()">
         <!-- <img class="icon" src="assets/edit-icon.svg" /> -->
-        <linktank-edit-icon class="icon"></linktank-edit-icon>
+        <icon-edit class="icon"></icon-edit>
       </div>
       <div class="pointer padded" (click)="deleteLink()">
         <!-- <img class="icon" src="assets/delete-icon.svg" /> -->
-        <linktank-delete-icon></linktank-delete-icon>
+        <icon-delete></icon-delete>
       </div>
     </div>
   </div>

@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/ngx-icons",
+  "sourceRoot": "libs/ngx-icons/src",
+  "prefix": "icon",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ngx-icons"],
+      "options": {
+        "jestConfig": "libs/ngx-icons/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ngx-icons/src/**/*.ts",
+          "libs/ngx-icons/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
