@@ -45,13 +45,13 @@ export class LinkComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    if (this.link.id === '-1') {
-      this.link = await lastValueFrom(
-        this.http.get<Link>(
-          `http://localhost:3333/api/v1/links/${this.route.snapshot.params['id']}?expand=metadata,tags`
-        )
-      );
-    }
+    // if (this.link.id === '-1') {
+    //   this.link = await lastValueFrom(
+    //     this.http.get<Link>(
+    //       `http://localhost:3333/api/v1/links/${this.route.snapshot.params['id']}?expand=metadata,tags`
+    //     )
+    //   );
+    // }
   }
 
   async toggleReadStatus() {
