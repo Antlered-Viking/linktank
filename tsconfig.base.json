@@ -21,6 +21,7 @@
       "@linktank/health": ["libs/health/src/index.ts"],
       "@linktank/links": ["libs/links/src/index.ts"],
       "@linktank/ngx-auth": ["libs/ngx-auth/src/index.ts"],
+      "@linktank/ngx-layout": ["libs/ngx-layout/src/index.ts"],
       "@linktank/ngx-ui": ["libs/ngx-ui/src/index.ts"],
       "@linktank/users": ["libs/users/src/index.ts"]
     }

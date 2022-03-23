@@ -10,6 +10,7 @@
     "links": "libs/links",
     "ngx-auth": "libs/ngx-auth",
     "ngx-icons": "libs/ngx-icons",
+    "ngx-layout": "libs/ngx-layout",
     "ngx-ui": "libs/ngx-ui",
     "users": "libs/users"
   }

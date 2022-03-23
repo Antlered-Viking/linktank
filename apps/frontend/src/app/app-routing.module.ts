@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { NgxUiModule, WelcomeComponent } from '@linktank/ngx-ui';
 import {
   LinkComponent,

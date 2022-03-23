@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/ngx-layout",
+  "sourceRoot": "libs/ngx-layout/src",
+  "prefix": "layout",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ngx-layout"],
+      "options": {
+        "jestConfig": "libs/ngx-layout/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ngx-layout/src/**/*.ts",
+          "libs/ngx-layout/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
