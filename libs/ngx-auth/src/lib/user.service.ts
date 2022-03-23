@@ -18,7 +18,7 @@ export class UserService {
   constructor(private http: HttpClient, private router: Router) {
     this.user = undefined;
     this.accessToken = undefined;
-    this.pin = '667226';
+    this.pin = '667226'; //TODO replace hardcoded pin with user supplied pin
   }
 
   async register(name: string, password: string) {
