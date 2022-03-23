@@ -27,9 +27,9 @@ const routes: Routes = [
         component: LinkComponent,
       },
       { path: 'status', component: StatusComponent },
+      { path: '', redirectTo: '/home', pathMatch: 'full' },
     ],
   },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -38,8 +38,16 @@ export class AuthPanelComponent {
   updateUser(user: SanitizedUser | undefined) {
     this.user = user;
     this.toggleVisibility();
-    if (user) {
+    if (this.user) {
       this.router.navigate(['/links']);
     }
+  }
+
+  logout() {
+    this.userService.logout();
+    this.user = undefined;
+    this.isLoggedIn = false;
+    this.toggleVisibility();
+    this.router.navigate(['/home']);
   }
 }

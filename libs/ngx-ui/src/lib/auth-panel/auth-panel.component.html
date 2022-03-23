@@ -3,6 +3,7 @@
   <div *ngIf="user; else loggedOut">
     <div *ngIf="visible" [@slideInOut]>
       {{ user | json }}
+      <button (click)="logout()">Logout</button>
     </div>
   </div>
   <ng-template #loggedOut>
