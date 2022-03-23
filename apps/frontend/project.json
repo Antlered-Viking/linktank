@@ -22,7 +22,8 @@
         "styles": ["apps/frontend/src/styles.scss"],
         "scripts": [],
         "serviceWorker": true,
-        "ngswConfigPath": "apps/frontend/ngsw-config.json"
+        "ngswConfigPath": "apps/frontend/ngsw-config.json",
+        "allowedCommonJsDependencies": ["crypto-js"]
       },
       "configurations": {
         "production": {
