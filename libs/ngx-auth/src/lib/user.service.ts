@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { SanitizedUser } from '@linktank/users';
 import { lastValueFrom } from 'rxjs';
 import * as CryptoJS from 'crypto-js';
@@ -12,12 +12,13 @@ export class UserService {
   user?: SanitizedUser;
   accessToken?: string;
   pin: string;
+  @Output()
+  authChangedEvent = new EventEmitter<void>();
 
   constructor(private http: HttpClient, private router: Router) {
     this.user = undefined;
     this.accessToken = undefined;
     this.pin = '667226';
-    this.unlockToken(this.pin);
   }
 
   async register(name: string, password: string) {
@@ -48,15 +49,15 @@ export class UserService {
       console.log(e);
     }
     localStorage.setItem('token', pass);
-    this.user = await lastValueFrom(
-      this.http.get<SanitizedUser>('/api/v1/auth/me')
-    );
+    this.user = await this.getProfile();
+    this.authChangedEvent.emit();
     this.router.navigate(['/links']);
   }
 
   logout() {
     this.user = undefined;
     this.accessToken = undefined;
+    this.authChangedEvent.emit();
   }
 
   unlockToken(pin: string) {
@@ -80,5 +81,9 @@ export class UserService {
       }
     }
     return false;
+  }
+
+  async getProfile() {
+    return await lastValueFrom(this.http.get<SanitizedUser>('/api/v1/auth/me'));
   }
 }

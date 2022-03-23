@@ -1,15 +1,16 @@
 <div *ngIf="!isLoggedIn">
-  <div>
-    <label for="name">Username: </label>
-    <input type="text" id="name" [(ngModel)]="name" />
+  <div *ngIf="!usePin; else pinPad">
+    <div>
+      <label for="name">Username: </label>
+      <input type="text" id="name" [(ngModel)]="name" />
+    </div>
+    <div>
+      <label for="password">Password: </label>
+      <input type="password" id="password" [(ngModel)]="password" />
+    </div>
+    <button (click)="submit()">Login</button>
   </div>
-  <div>
-    <label for="password">Password: </label>
-    <input type="password" id="password" [(ngModel)]="password" />
-  </div>
-  <button (click)="submit()">Login</button>
-
-  <div *ngIf="usePin">
-    <linktank-pin-pad></linktank-pin-pad>
-  </div>
+  <ng-template #pinPad>
+    <linktank-pin-pad (pinEntryEvent)="catchPin($event)"></linktank-pin-pad>
+  </ng-template>
 </div>

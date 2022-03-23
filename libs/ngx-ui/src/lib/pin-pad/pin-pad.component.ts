@@ -1,5 +1,6 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { UserService } from '@linktank/ngx-auth';
+import { SanitizedUser } from '@linktank/users';
 @Component({
   selector: 'linktank-pin-pad',
   templateUrl: './pin-pad.component.html',
@@ -8,6 +9,8 @@ import { UserService } from '@linktank/ngx-auth';
 export class PinPadComponent {
   entry: string;
   errorMsg: string;
+  @Output()
+  pinEntryEvent = new EventEmitter<SanitizedUser | undefined>();
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
@@ -48,6 +51,9 @@ export class PinPadComponent {
     if (this.user.unlockToken(this.entry)) {
       this.entry = '';
       this.errorMsg = '';
+      this.user.getProfile().then((user) => {
+        this.pinEntryEvent.emit(user);
+      });
     } else {
       this.errorMsg = 'INVALID PIN';
     }

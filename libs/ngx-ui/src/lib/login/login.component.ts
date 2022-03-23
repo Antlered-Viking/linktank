@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { UserService } from '@linktank/ngx-auth';
 import { SanitizedUser } from '@linktank/users';
 
@@ -7,10 +7,9 @@ import { SanitizedUser } from '@linktank/users';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   name: string;
   password: string;
-  @Input()
   usePin: boolean;
   isLoggedIn: boolean;
   @Output()
@@ -19,8 +18,14 @@ export class LoginComponent {
   constructor(private user: UserService) {
     this.name = '';
     this.password = '';
-    this.usePin = true;
+    this.usePin = false;
     this.isLoggedIn = false;
+  }
+
+  ngOnInit(): void {
+    if (localStorage.getItem('token')) {
+      this.usePin = true;
+    }
   }
 
   async submit() {
@@ -28,5 +33,12 @@ export class LoginComponent {
     this.name = '';
     this.password = '';
     this.authChangedEvent.emit(this.user.user);
+  }
+
+  catchPin(user: SanitizedUser | undefined) {
+    if (user) {
+      this.isLoggedIn = true;
+    }
+    this.authChangedEvent.emit(user);
   }
 }
