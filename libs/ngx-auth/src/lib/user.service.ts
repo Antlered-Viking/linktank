@@ -13,7 +13,7 @@ export class UserService {
   accessToken?: string;
   pin: string;
   @Output()
-  authChangedEvent = new EventEmitter<void>();
+  authChangedEvent = new EventEmitter<SanitizedUser | undefined>();
 
   constructor(private http: HttpClient, private router: Router) {
     this.user = undefined;
@@ -50,14 +50,14 @@ export class UserService {
     }
     localStorage.setItem('token', pass);
     this.user = await this.getProfile();
-    this.authChangedEvent.emit();
+    this.authChangedEvent.emit(this.user);
     this.router.navigate(['/links']);
   }
 
   logout() {
     this.user = undefined;
     this.accessToken = undefined;
-    this.authChangedEvent.emit();
+    this.authChangedEvent.emit(undefined);
   }
 
   unlockToken(pin: string) {
