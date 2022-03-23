@@ -3,6 +3,17 @@
   <div *ngIf="user; else loggedOut">
     <div *ngIf="visible" [@slideInOut]>
       {{ user | json }}
+      <img
+        *ngIf="user.avatarURL; else genAvatar"
+        src="user.avatarURL"
+        alt="user avatar"
+      />
+      <ng-template #genAvatar>
+        <img
+          src="https://avatars.dicebear.com/api/identicon/user.name.svg"
+          alt="user avatar"
+        />
+      </ng-template>
       <button (click)="logout()">Logout</button>
     </div>
   </div>
