@@ -7,9 +7,10 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
     "dev": "nx run-many --target=serve --all=true --parallel=true",
     "dev:prod": "nx run-many --target=serve --all=true --parallel=true --configuration=production",
-    "start": "nx serve",
-    "build": "nx build",
-    "test": "nx test"
+    "start": "npm run dev",
+    "build": "cross-env NX_BRANCH=local nx run-many --target=build --all=true --parallel=true --maxParallel=20",
+    "test": "cross-env NX_BRANCH=local nx run-many --target=test --all=true --parallel=true --maxParallel=20",
+    "test:watch": "cross-env NX_BRANCH=local nx affected:test --all --parallel --maxParallel 20 --watch"
   },
   "private": true,
   "dependencies": {
@@ -73,6 +74,7 @@
     "@types/passport-local": "^1.0.34",
     "@typescript-eslint/eslint-plugin": "~5.10.0",
     "@typescript-eslint/parser": "~5.10.0",
+    "cross-env": "^7.0.3",
     "cypress": "^9.1.0",
     "eslint": "~8.7.0",
     "eslint-config-prettier": "8.1.0",
