@@ -1,4 +1,8 @@
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { NgxAuthModule, UserService } from '@linktank/ngx-auth';
 
 import { PinPadComponent } from './pin-pad.component';
 
@@ -8,9 +12,15 @@ describe('PinPadComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PinPadComponent ]
-    })
-    .compileComponents();
+      imports: [
+        NgxAuthModule,
+        HttpClientModule,
+        RouterModule,
+        RouterTestingModule,
+      ],
+      declarations: [PinPadComponent],
+      providers: [UserService, HttpClient, RouterTestingModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {
