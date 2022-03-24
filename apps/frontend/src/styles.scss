@@ -4,6 +4,7 @@
   --text-color: #2f323a;
   --primary-accent-color: #c0c0c0;
   --secondary-accent-color: #ff6700;
+
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -27,11 +28,9 @@ body {
 }
 
 .icon {
-  filter: invert(92%) sepia(0%) saturate(253%) hue-rotate(250deg)
-    brightness(88%) contrast(82%);
+  filter: invert(92%) sepia(0%) saturate(253%) hue-rotate(250deg) brightness(88%) contrast(82%);
 }
 
 .icon:hover {
-  filter: invert(43%) sepia(99%) saturate(2632%) hue-rotate(2deg)
-    brightness(105%) contrast(104%);
+  filter: invert(43%) sepia(99%) saturate(2632%) hue-rotate(2deg) brightness(105%) contrast(104%);
 }
