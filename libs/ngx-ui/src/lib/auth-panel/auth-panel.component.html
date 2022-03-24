@@ -1,0 +1,19 @@
+<div class="container">
+  <button class="tabBtn" (click)="toggleVisibility()">Auth</button>
+  <div *ngIf="visible" [@slideInOut]>
+    <div *ngIf="user; else loggedOut">
+      <!-- For a list of available properties, see the return of libs/auth/jwt.strategy.ts -->
+      {{ user | json }}
+      <h2>{{ user.name }}</h2>
+      <img [src]="user.avatarURL" alt="user avatar" />
+      <button (click)="logout()">Logout</button>
+    </div>
+    <ng-template #loggedOut>
+      <div *ngIf="visible" [@slideInOut] class="authPanel">
+        <linktank-login
+          (authChangedEvent)="updateUser($event)"
+        ></linktank-login>
+      </div>
+    </ng-template>
+  </div>
+</div>

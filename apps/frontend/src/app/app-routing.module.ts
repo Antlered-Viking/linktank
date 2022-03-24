@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
+import { AppLayoutComponent } from '@linktank/ngx-layout';
 import { NgxUiModule, WelcomeComponent } from '@linktank/ngx-ui';
 import {
   LinkComponent,
@@ -11,19 +11,25 @@ import {
 } from '@linktank/ngx-ui';
 
 const routes: Routes = [
-  { path: 'home', component: WelcomeComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
   {
-    path: 'links',
-    component: LinksComponent,
+    path: '',
+    component: AppLayoutComponent,
+    children: [
+      { path: 'home', component: WelcomeComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'login', component: LoginComponent },
+      {
+        path: 'links',
+        component: LinksComponent,
+      },
+      {
+        path: 'link/:id',
+        component: LinkComponent,
+      },
+      { path: 'status', component: StatusComponent },
+      { path: '', redirectTo: '/home', pathMatch: 'full' },
+    ],
   },
-  {
-    path: 'link/:id',
-    component: LinkComponent,
-  },
-  { path: 'status', component: StatusComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({

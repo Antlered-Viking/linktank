@@ -34,9 +34,8 @@ export class LinksComponent implements OnInit {
     this.links = await this.linksService.getFilteredLinks(filter);
   }
   async createNewLink(): Promise<void> {
-    await this.linksService.createLink(this.newLink);
+    this.links.push(await this.linksService.createLink(this.newLink));
     this.newLink.url = '';
     this.newLink.tags = [];
-    this.links = await this.linksService.getLinks();
   }
 }

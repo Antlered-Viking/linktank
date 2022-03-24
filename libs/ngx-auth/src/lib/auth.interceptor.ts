@@ -1,10 +1,8 @@
 import {
-  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -18,22 +16,27 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    req = req.clone({
-      setHeaders: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: `Bearer ${this.user.accessToken}`,
-      },
-    });
+    console.log(req.url);
+    if (
+      req.url.includes('/api/v1/links') ||
+      (req.url.includes('/api/v1/auth') &&
+        !req.url.includes('register') &&
+        !req.url.includes('login'))
+    ) {
+      req = req.clone({
+        setHeaders: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: `Bearer ${this.user.accessToken}`,
+        },
+      });
+    }
 
     return next.handle(req).pipe(
-      tap((event) => {
-        if (event instanceof HttpResponse) {
-          // do stuff with response if you want
-        } else if (event instanceof HttpErrorResponse) {
-          if (event.status === 401) {
-            //TODO redirect to login
-          }
+      //FIXME deal with deprecated function call
+      tap(null, (error) => {
+        if (error.status === 401) {
+          this.user.logout();
         }
       })
     );

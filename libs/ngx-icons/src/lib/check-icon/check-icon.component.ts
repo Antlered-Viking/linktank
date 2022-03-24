@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'linktank-check-icon',
+  selector: 'icon-check',
   templateUrl: './check-icon.component.svg',
   styleUrls: ['./check-icon.component.scss'],
 })

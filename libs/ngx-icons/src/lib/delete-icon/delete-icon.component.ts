@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'linktank-delete-icon',
+  selector: 'icon-delete',
   templateUrl: './delete-icon.component.svg',
   styleUrls: ['./delete-icon.component.scss'],
 })

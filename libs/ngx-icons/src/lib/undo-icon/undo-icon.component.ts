@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'linktank-undo-icon',
+  selector: 'icon-undo',
   templateUrl: './undo-icon.component.svg',
   styleUrls: ['./undo-icon.component.scss'],
 })

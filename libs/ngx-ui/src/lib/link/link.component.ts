@@ -21,15 +21,7 @@ interface Link {
 })
 export class LinkComponent implements OnInit {
   @Input()
-  link: Link = {
-    id: '-1',
-    url: 'INVALID',
-    isRead: false,
-    tags: [],
-    notes: '',
-    customData: [],
-    metadataId: '-1',
-  };
+  link: Link;
   editingURL = false;
 
   @Output()
@@ -39,17 +31,27 @@ export class LinkComponent implements OnInit {
     private readonly http: HttpClient,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    this.link = {
+      id: '-1',
+      url: 'INVALID',
+      isRead: false,
+      tags: [],
+      notes: '',
+      customData: [],
+      metadataId: '-1',
+    };
+  }
 
   async ngOnInit(): Promise<void> {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    if (this.link.id === '-1') {
-      this.link = await lastValueFrom(
-        this.http.get<Link>(
-          `http://localhost:3333/api/v1/links/${this.route.snapshot.params['id']}?expand=metadata,tags`
-        )
-      );
-    }
+    // if (this.link.id === '-1') {
+    //   this.link = await lastValueFrom(
+    //     this.http.get<Link>(
+    //       `http://localhost:3333/api/v1/links/${this.route.snapshot.params['id']}?expand=metadata,tags`
+    //     )
+    //   );
+    // }
   }
 
   async toggleReadStatus() {
