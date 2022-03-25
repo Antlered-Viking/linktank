@@ -29,7 +29,7 @@ jobs:
       - run: npx nx affected --target=build --parallel --max-parallel=20
       - run: npx nx affected --target=test --codeCoverage --coverageReporters=lcov --parallel --max-parallel=20
       - run: npx nx-cloud stop-all-agents
-      - run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report $(find ./coverage/**/lcov.info -printf '-r %p ')
+      - run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report $(find **/lcov.info -printf '-r %p ')
   pr:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' }}
@@ -49,7 +49,7 @@ jobs:
       - run: npx nx affected --target=build --parallel --max-parallel=20
       - run: npx nx affected --target=test --codeCoverage --coverageReporters=lcov --parallel --max-parallel=20
       - run: npx nx-cloud stop-all-agents
-      - run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report $(find ./coverage/**/lcov.info -printf '-r %p ')
+      - run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report $(find **/lcov.info -printf '-r %p ')
   agents:
     runs-on: ubuntu-latest
     name: Agent 1
