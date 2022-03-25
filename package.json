@@ -54,7 +54,7 @@
     "@nestjs/mapped-types": "^1.0.1",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
-    "@nrwl/cli": "13.8.8-beta.1",
+    "@nrwl/cli": "13.9.4",
     "@nrwl/cypress": "13.8.8-beta.1",
     "@nrwl/eslint-plugin-nx": "13.8.8-beta.1",
     "@nrwl/jest": "13.8.8-beta.1",
