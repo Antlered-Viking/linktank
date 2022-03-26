@@ -11,6 +11,7 @@
     "build": "cross-env NX_BRANCH=local nx run-many --target=build --all --parallel --maxParallel 20",
     "test": "cross-env NX_BRANCH=local nx run-many --target=test --all --parallel --maxParallel 20",
     "test:watch": "cross-env NX_BRANCH=local nx affected:test --all --parallel --maxParallel 20 --watch",
+    "test:coverage": "cross-env NX_BRANCH=local nx run-many --target=test --codeCoverage --coverageReporters=lcov --all --parallel --maxParallel 20",
     "lint": "cross-env NX_BRANCH=local nx affected:lint --all --parallel --maxParallel 20"
   },
   "private": true,
