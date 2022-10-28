@@ -62,7 +62,7 @@
     "@nrwl/nest": "^13.8.8",
     "@nrwl/node": "13.9.4",
     "@nrwl/nx-cloud": "latest",
-    "@nrwl/tao": "13.8.8-beta.1",
+    "@nrwl/tao": "15.0.4",
     "@nrwl/workspace": "13.8.8-beta.1",
     "@types/bcrypt": "^5.0.0",
     "@types/bcryptjs": "^2.4.2",
